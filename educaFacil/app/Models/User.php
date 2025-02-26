@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -20,6 +19,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'gender',
+        'birthday',
+        'role',
         'password',
     ];
 
@@ -45,6 +48,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function teachers()
+    {
+        
+        return $this->hasMany(Teacher::class, "user_id");
+    }
 
     
+
 }

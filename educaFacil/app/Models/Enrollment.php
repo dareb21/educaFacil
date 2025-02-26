@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Teacher extends Model
+class Enrollment extends Model
 {
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'profession',
+        'course_id',
     ];
-
-    
-    public $timestamps = false;
 }

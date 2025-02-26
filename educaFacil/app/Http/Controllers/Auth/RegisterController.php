@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -51,6 +52,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' =>['required','string','size:8'],
+            'gender' =>['required','in:masculino,femenino'],
+            'birthday'=>['required','date_format:Y-m-d'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -63,10 +67,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
+            'birthday' => $data['birthday'],    
+            'role' => $data['role'] ?? 'Estudiante',   
             'password' => Hash::make($data['password']),
         ]);
-    }
+       
+    $stu = new Student;
+    $stu->user_id = $user->id;
+    $stu->grade ="college";
+    $stu->save();
+
+    return $user; 
+        }
 }

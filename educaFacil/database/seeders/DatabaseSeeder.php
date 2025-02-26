@@ -3,8 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Category;
+use App\Models\Course;
+use App\Models\Enrollment;
+use App\Models\Student;
+use App\Models\Teacher;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +21,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+      
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+      
+        Enrollment::create([
+            'student_id'=>3,
+            'course_id'=>2,
+        ]);
+
+        Enrollment::create([
+            'student_id'=>3,
+            'course_id'=>1,
         ]);
     }
 }
