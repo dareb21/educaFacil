@@ -67,6 +67,28 @@
                             </div>
                         </div>
 
+
+                        <div class="row mb-3">
+                            <label for="grade" class="col-md-4 col-form-label text-md-end">{{ __('Maximo Grado academico') }}</label>
+                            <div class="col-md-6">
+                                <select id="grade" class="form-control @error('grade') is-invalid @enderror" name="grade" required>
+                                <option value="" disabled selected>{{ __('Seleccionar') }}</option>
+                                <option value="Primaria">{{ __('Primaria') }}</option>
+                                <option value="Secundaria">{{ __('Secundaria') }}</option>
+                                <option value="Educacion Superior">{{ __('Educacion Superior') }}</option>
+                                <option value="Maestria">{{ __('Maestria') }}</option>
+                                <option value="Doctorado">{{ __('Doctorado') }}</option>
+                                
+                                </select>
+                                @error('grade')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
                         <div class="row mb-3">
                             <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Fecha de Nacimiento') }}</label>
                             <div class="col-md-6">

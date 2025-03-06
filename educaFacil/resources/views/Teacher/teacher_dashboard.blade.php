@@ -85,29 +85,29 @@
 <div class="container">
     <!-- Clases -->
     <div class="course-card">
-        <h3 class="course-title">Clases en Vivo</h3>
-        <p class="course-description">Únete a las sesiones en vivo del curso.</p>
+        <h3 class="course-title">Entrar a videoconferencia</h3>
+        <p class="course-description">Únete a las sesiones en vivo de tu curso.</p>
         <a href="" class="course-button">Ingresar</a>
     </div>
-   
+
     <!-- Asignaciones -->
     <div class="course-card">
         <h3 class="course-title">Asignaciones</h3>
-        <p class="course-description">Sube tus tareas y revisa tus calificaciones.</p>
-        <a href="{{route('Homework_stu',  ['courseID'=>$course->id])}}" class="course-button">Ver tareas</a>
+        <p class="course-description">Evalua las asignaciones de tus alumnos.</p>
+        <a href="{{route('homework', ['cursoId' => $course->id] ) }}" class="course-button">Ver tareas</a>
     </div>
 
     <!-- Recursos -->
     <div class="course-card">
         <h3 class="course-title">Recursos</h3>
-        <p class="course-description">Accede al material didáctico del curso.</p>
+        <p class="course-description">Asigna el material didactico necesario para el curso.</p>
         <a href="#" class="course-button">Ver recursos</a>
     </div>
 
     <!-- Grupo de WhatsApp -->
     <div class="course-card">
         <h3 class="course-title">Grupo de WhatsApp</h3>
-        <p class="course-description">Únete al grupo para resolver dudas y estar informado.</p>
+        <p class="course-description">Mantente comunicado con tus alumnos, asigna el grupo de whatsapp.</p>
         <a href="https://chat.whatsapp.com/TU-LINK-AQUI" class="course-button" style="background-color: #25D366;">Unirme</a>
     </div>
 </div>

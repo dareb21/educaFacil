@@ -16,6 +16,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+//Admin
 Route::get('/admin/create/admin',[AdminController::class,"newAdmin"])->name("newAdmin");
 Route::post("/admin/create/admin",[AdminController::class,"createAdmin"])->name("createAdmin");
 
@@ -28,16 +30,25 @@ Route::post('/admin/create/category',[AdminController::class,"createCategory"])-
 Route::get('/admin/create/course',[AdminController::class,"newCourse"])->name("newCourse");
 Route::post('/admin/create/course',[AdminController::class,"createCourse"])->name("createCourse");
 
-
+//teacher
 Route::get('/teacher/home',[TeacherController::class,"teacherHome"])->name("teacherHome");
+Route::get('/teacher/homework/{cursoId}',[TeacherController::class,"homework"])->name("homework");
+Route::post('/teacher/homework/{cursoId}',[TeacherController::class,"Newhomework"])->name("Newhomework");
 
+Route::get('/dashboard/course/{cursoId}',[TeacherController::class,"course_dasboard"])->name("course_dashboard");
+
+
+//estudiante
 Route::get('/myCourses',[StudentController::class,"myCourses"])->name("myCourses");
-
 Route::get('/myCourses/course/{myCourseId}',[StudentController::class,"dashboard"])->name("dashboard");
 
 Route::get('/courses',[CourseController::class,"courses"])->name("courses");
 Route::get('/courses/view/{courseId}',[CourseController::class,"coursesView"])->name("coursesView");
 Route::post('/courses/view/{courseId}',[CourseController::class,"enrollment"])->name("enrollment");
+
+Route::get("homework/{courseID}",[StudentController::class,"homework"])->name("Homework_stu");
+
+Route::get('/laravel',[AdminController::class,"laravel"])->name("laravel");
 
 
 Route::get('/noticias',[AdminController::class,"posts"])->name("posts");

@@ -21,17 +21,52 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-      
+   
 
-      
-        Enrollment::create([
-            'student_id'=>3,
-            'course_id'=>2,
+
+
+        Course::create([
+            'name' => 'Web Development 101',
+            'desc' => 'An introductory course to web development, covering HTML, CSS, and JavaScript.',
+            'duration' => 13, // duración en horas
+            'mode' => 'Live',
+            'free_spots' => 30,
+            'date_start' => '2025-04-01',
+            'teacher_id' => 4, // Este id debe existir en la tabla de teachers
+            'category_id' => 1, // Este id debe existir en la tabla de categories
         ]);
 
-        Enrollment::create([
-            'student_id'=>3,
-            'course_id'=>1,
+        Course::create([
+            'name' => 'Advanced Python Programming',
+            'desc' => 'A deep dive into Python programming, covering advanced concepts and libraries.',
+            'duration' => 4,
+            'mode' => 'Recorded',
+            'free_spots' => 20,
+            'date_start' => '2025-05-10',
+            'teacher_id' => 5,
+            'category_id' => 3,
+        ]);
+
+        Course::create([
+            'name' => 'Data Science with R',
+            'desc' => 'Learn data science concepts and techniques using R programming.',
+            'duration' => 20,
+            'mode' => 'Live',
+            'free_spots' => 25,
+            'date_start' => '2025-06-15',
+            'teacher_id' => 6,
+            'category_id' => 2,
+        ]);
+
+        Course::create([
+            'name' => 'Digital Marketing Fundamentals',
+            'desc' => 'Explore the key concepts of digital marketing, including SEO, PPC, and social media.',
+            'duration' => 6,
+            'mode' => 'Recorded',
+            'free_spots' => 50,
+            'date_start' => '2025-07-20',
+            'teacher_id' => 5,
+            'category_id' => 4,
         ]);
     }
 }

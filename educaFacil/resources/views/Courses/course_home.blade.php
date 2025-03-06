@@ -19,56 +19,61 @@
     }
 
     .productos__heading {
-        font-size: 32px;
+        font-size: 36px;
         color: #2c3e50;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .productos__grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
         justify-content: center;
     }
 
     .producto {
-        background: #fff;
+        background: #ffffff;
         border-radius: 12px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        padding: 20px;
+        padding: 25px;
         text-align: center;
+        cursor: pointer;
     }
 
     .producto:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
     }
 
     .producto__contenido {
         text-align: center;
+        padding: 10px;
     }
 
     .producto__nombre {
-        font-size: 22px;
+        font-size: 24px;
         font-weight: bold;
         color: #2c3e50;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
     }
 
     .producto__descripcion {
         font-size: 16px;
         color: #555;
         line-height: 1.5;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .producto__info {
         font-size: 14px;
         color: #777;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
 
     .producto__info span {
@@ -78,21 +83,39 @@
 
     .modelo__enlace {
         display: inline-block;
-        margin-top: 12px;
-        padding: 10px 20px;
-        font-size: 16px;
+        margin-top: 15px;
+        padding: 12px 25px;
+        font-size: 18px;
         font-weight: bold;
         color: #fff;
         background-color: #007bff;
         border-radius: 8px;
         text-decoration: none;
-        transition: background 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .modelo__enlace:hover {
         background-color: #0056b3;
+        transform: translateY(-3px);
+    }
+
+    /* Media queries */
+    @media (max-width: 768px) {
+        .productos__heading {
+            font-size: 28px;
+        }
+
+        .producto {
+            padding: 15px;
+        }
+
+        .modelo__enlace {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
     }
 </style>
+
 @if(session('mensaje'))
     <script>
         Swal.fire({
@@ -117,12 +140,11 @@
                 <p class="producto__info"><span>Cupos disponibles:</span> {{ $course->free_spots }}</p>
                 <p class="producto__info"><span>Inicio:</span> {{ $course->date_start }}</p>
                 <p class="producto__info"><span>Categoría:</span> {{ $course->category_name }}</p>
-                <a class="modelo__enlace" href="{{route('coursesView', ['courseId' => $course->id] ) }}">Ver Curso</a>
+                <a class="modelo__enlace" href="{{ route('coursesView', ['courseId' => $course->id]) }}">Ver Curso</a>
             </div>
         </div>
         @endforeach
+    </div>
 </main>
-
-
 
 @endsection

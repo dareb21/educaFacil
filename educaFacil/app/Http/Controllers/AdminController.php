@@ -105,4 +105,13 @@ class AdminController extends Controller
 {
     return view("post");
 }
+
+
+public function laravel()
+{
+    return view("welcome");
+}
+
+
+
 }

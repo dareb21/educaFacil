@@ -74,12 +74,14 @@
         @media (max-width: 768px) {
             .course-card {
                 width: 100%;
-                padding: 30px;
+                padding: 50px;
             }
         }
     </style>
 </head>
 <body>
+
+
     <div class="container">
         @foreach($courses as $course)
             <div class="course-card">
