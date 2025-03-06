@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -106,33 +110,58 @@
             transform: scale(1.1);
         }
     </style>
+    @if(session('mensaje'))
+    <script>
+        Swal.fire({
+            title: "Transaccion satisfactoria.",
+            text: "{{ session('mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
 </head>
+
 <body>
-    <div class="container">
-        <h1>Asignaciones del Curso</h1>
-        <ul class="asignaciones">
+<div class="container">
+    <h1>Asignaciones del Curso</h1>
+    <ul class="asignaciones">
         @foreach ($hws as $hw)
-    <li class="asignacion">
-        <h2>{{ $hw->Name }}</h2>
-        <p>{{ $hw->Desc }}</p>
-        <p>Puntos: {{ $hw->Points }}</p>
-        <span class="fecha">Fecha de entrega: {{ $hw->Deadline }}</span>
-        <button class="btn-entregar">Entregar</button>
-        <input type="file" class="fileInput" style="display: none;" />
-    </li>
-@endforeach
-        </ul>
-    </div>
+            <li class="asignacion">
+                <h2>{{ $hw->Name }}</h2>
+                <p>{{ $hw->Desc }}</p>
+                <p>Puntos: {{ $hw->Points }}</p>
+                <span class="fecha">Fecha de entrega: {{ $hw->Deadline }}</span>
+
+                
+                <button class="btn-entregar">Entregar</button>
+
+                <form action="{{route('submit', ['courseID'=>$hw->course_id])}}" method="POST" enctype="multipart/form-data" class="uploadForm">
+                    @csrf
+                    <input type="hidden" name="hw_id" value="{{ $hw->id }}">
+                    <input type="file" name="archivo" class="fileInput" style="display: none;" />
+                </form>
+            </li>
+        @endforeach
+    </ul>
+</div>
+
 </body>
 
 <script>
-    // Agregar un evento para cada botón "Entregar"
     document.querySelectorAll('.btn-entregar').forEach((button, index) => {
         button.addEventListener('click', function() {
-            // Abrir el explorador de archivos correspondiente
+            // Simular clic en el input de archivo
             document.querySelectorAll('.fileInput')[index].click();
+        });
+    });
+
+    document.querySelectorAll('.fileInput').forEach((input, index) => {
+        input.addEventListener('change', function() {
+            // Enviar el formulario automáticamente cuando se seleccione un archivo
+            document.querySelectorAll('.uploadForm')[index].submit();
         });
     });
 </script>
 
 </html>
+@endsection

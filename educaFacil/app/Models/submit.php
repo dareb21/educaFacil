@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class submit extends Model
 {
+
+    protected $table = 'submit';
+    
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'student_id',
+        'Points',
+        'hw_id',
+        'file_path',
         'course_id',
     ];
 }

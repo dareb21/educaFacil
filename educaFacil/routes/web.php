@@ -47,6 +47,9 @@ Route::get('/courses/view/{courseId}',[CourseController::class,"coursesView"])->
 Route::post('/courses/view/{courseId}',[CourseController::class,"enrollment"])->name("enrollment");
 
 Route::get("homework/{courseID}",[StudentController::class,"homework"])->name("Homework_stu");
+Route::post("homework/{courseID}",[StudentController::class,"submit"])->name("submit");
+
+
 
 Route::get('/laravel',[AdminController::class,"laravel"])->name("laravel");
 
