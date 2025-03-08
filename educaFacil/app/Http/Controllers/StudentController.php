@@ -7,6 +7,7 @@ use App\Models\Enrollment;
 use App\Models\Homework;
 use App\Models\Course;
 use App\Models\submit;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {

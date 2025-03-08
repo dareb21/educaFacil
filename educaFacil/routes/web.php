@@ -32,10 +32,14 @@ Route::post('/admin/create/course',[AdminController::class,"createCourse"])->nam
 
 //teacher
 Route::get('/teacher/home',[TeacherController::class,"teacherHome"])->name("teacherHome");
+Route::get('/teacher/dashboardHW/{cursoId}',[TeacherController::class,"homeHomework"])->name("homeHomework");
 Route::get('/teacher/homework/{cursoId}',[TeacherController::class,"homework"])->name("homework");
 Route::post('/teacher/homework/{cursoId}',[TeacherController::class,"Newhomework"])->name("Newhomework");
-
 Route::get('/dashboard/course/{cursoId}',[TeacherController::class,"course_dasboard"])->name("course_dashboard");
+Route::get('/evaluate/course/hw/{cursoId}',[TeacherController::class,"Evaluate"])->name("evaluate");
+Route::get('/evaluate/hw/{hwId}',[TeacherController::class,"submits"])->name("submits");
+Route::get('/download/hw/{subId}',[TeacherController::class,"download"])->name("download");
+
 
 
 //estudiante

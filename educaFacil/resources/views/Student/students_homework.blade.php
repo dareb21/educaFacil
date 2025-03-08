@@ -125,6 +125,8 @@
 <div class="container">
     <h1>Asignaciones del Curso</h1>
     <ul class="asignaciones">
+    @if (!$hws || !$hws->isEmpty() )
+    @endif
         @foreach ($hws as $hw)
             <li class="asignacion">
                 <h2>{{ $hw->Name }}</h2>
