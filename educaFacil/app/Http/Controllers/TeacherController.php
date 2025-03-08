@@ -91,12 +91,14 @@ public function evaluate($cursoId)
 
     public function download($subId)
 {
+   
     $file=submit::find($subId);
+   
     $path= $file->file_path;
-    dd($path);
-    if (Storage::exists($path))
-    {   return response()->json(["message"=>"Archivo SI encontrado"]);
-        return Storage::download($path);
+    
+    if (Storage::disk('public')->exists($path))
+    {  
+        return Storage::disk('public')->download($path);
     }else
 {
     return response()->json(["message"=>"Archivo NO encontrado"]);
