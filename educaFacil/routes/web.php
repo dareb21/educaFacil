@@ -53,8 +53,8 @@ Route::get("homework/{courseID}",[StudentController::class,"homework"])->name("H
 Route::post("homework/{courseID}",[StudentController::class,"submit"])->name("submit");
 Route::get('/resources-available/{courseID}',[StudentController::class,"resources"])->name("resources_stu");
 Route::get("/resources-available/download/{resourceId}",[StudentController::class,"prueba"])->name("prueba");
-Route::get("/myProfile/{profileID}",[StudentController::class,"Profile"])->name("Profile");
-
+Route::get("/myProfile",[StudentController::class,"Profile"])->name("Profile");
+Route::put("/myProfile",[StudentController::class,"updateProfile"])->name("updateProfile");
 
 /////Extras
 Route::get('/noticias',[AdminController::class,"posts"])->name("posts");

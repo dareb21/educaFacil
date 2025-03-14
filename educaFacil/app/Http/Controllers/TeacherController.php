@@ -8,13 +8,15 @@ use App\Models\submit;
 use App\Models\Resources;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class TeacherController extends Controller
 {
     public function teacherHome()
     {
-        $cursos= Course::where("teacher_id",3)->get();
+        
+        $cursos= Course::where("teacher_id",Auth::id())->get();
         
         return view("Teacher/teacher_home",compact("cursos"));
     }

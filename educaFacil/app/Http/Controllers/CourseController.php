@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Enrollment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -31,9 +32,8 @@ class CourseController extends Controller
 
 public function enrollment($courseId)
 {
-    $id = 1;
     $enrol = new Enrollment;
-    $enrol->student_id = $id;
+    $enrol->student_id = Auth::id();
     $enrol->course_id =$courseId;
     $enrol->save();
 

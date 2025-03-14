@@ -93,7 +93,7 @@
     </div>
 
     <div class="course-card">
-    <a class="modelo__enlace" href="{{ route('Profile',['profileID'=>$user->id]) }}">
+    <a class="modelo__enlace" href="{{ route('Profile')}}">
     <div class="course-title">Configuración de Perfil</div>
     </a>
     </div>

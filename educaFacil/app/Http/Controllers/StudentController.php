@@ -7,8 +7,10 @@ use App\Models\Enrollment;
 use App\Models\Homework;
 use App\Models\Course;
 use App\Models\submit;
+use App\Models\User;
 use App\Models\Resources;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -19,10 +21,11 @@ class StudentController extends Controller
 
     public function myCourses()
     {
+        
         $courses = Enrollment::join('courses', 'courses.id', '=', 'enrollments.course_id')
         ->join('users','users.id','=','enrollments.student_id')
         ->select('courses.name as Course','courses.id','courses.meeting_url')
-        ->where("users.id",1)
+        ->where("users.id", Auth::id())
         ->get();
 
         return view("Student/students_myCourses",compact("courses"));
@@ -55,6 +58,8 @@ class StudentController extends Controller
     ->where('u.id', 1)
     ->get();
         */
+
+        
         return view("Student/students_homework",compact("hws"));
     }
 
@@ -66,7 +71,7 @@ class StudentController extends Controller
         
         $submit=submit::create([
             'hw_id'=>$request->hw_id,
-            'student_id'=>1,
+            'student_id'=>Auth::id(),
             'file_path'=>$file_path,
         ]);
 
@@ -94,8 +99,26 @@ public function prueba($resourceId)
     }
 }
 
-public function Profile($profileID)
-{
-    dd($profileID);
-}
+    public function Profile()
+    {
+        return view("Student/students_profile");
     }
+
+    public function updateProfile(Request $request)
+{
+    $id =Auth::id();
+    User::where("id",$id)
+    ->update([
+        "name"=>$request->name,
+        "email"=>$request->email,
+        "phone"=>$request->phone,
+        "gender"=>$request->gender,
+        "birthday"=>$request->birthday,
+    ]);
+    return redirect()->route('home');
+    
+    
+}
+    
+
+}
