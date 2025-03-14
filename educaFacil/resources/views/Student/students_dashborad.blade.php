@@ -87,7 +87,7 @@
     <div class="course-card">
         <h3 class="course-title">Clases en Vivo</h3>
         <p class="course-description">Únete a las sesiones en vivo del curso.</p>
-        <a href="" class="course-button">Ingresar</a>
+        <a href="{{e($course->meeting_url)}}" target="_blank" class="course-button">Ingresar</a>
     </div>
    
     <!-- Asignaciones -->
@@ -101,7 +101,7 @@
     <div class="course-card">
         <h3 class="course-title">Recursos</h3>
         <p class="course-description">Accede al material didáctico del curso.</p>
-        <a href="#" class="course-button">Ver recursos</a>
+        <a href="{{route('resources_stu',  ['courseID'=>$course->id])}}" class="course-button">Ver recursos</a>
     </div>
 
     <!-- Grupo de WhatsApp -->

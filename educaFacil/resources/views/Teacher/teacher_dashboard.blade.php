@@ -87,7 +87,7 @@
     <div class="course-card">
         <h3 class="course-title">Entrar a videoconferencia</h3>
         <p class="course-description">Únete a las sesiones en vivo de tu curso.</p>
-        <a href="" class="course-button">Ingresar</a>
+        <a href="{{e($course->meeting_url)}}" target="_blank" class="course-button">Ingresar</a>
     </div>
 
     <!-- Asignaciones -->
@@ -101,7 +101,7 @@
     <div class="course-card">
         <h3 class="course-title">Recursos</h3>
         <p class="course-description">Asigna el material didactico necesario para el curso.</p>
-        <a href="#" class="course-button">Ver recursos</a>
+        <a href="{{route('Resources', ['cursoId' => $course->id] ) }}" class="course-button">Ver recursos</a>
     </div>
 
     <!-- Grupo de WhatsApp -->

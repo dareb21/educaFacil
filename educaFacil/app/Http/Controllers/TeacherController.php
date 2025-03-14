@@ -5,6 +5,7 @@ use App\Models\Course;
 use App\Models\Homework;
 use Illuminate\Http\Request;
 use App\Models\submit;
+use App\Models\Resources;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,7 @@ class TeacherController extends Controller
 {
     public function teacherHome()
     {
-        $cursos= Course::where("teacher_id",5)->get();
+        $cursos= Course::where("teacher_id",3)->get();
         
         return view("Teacher/teacher_home",compact("cursos"));
     }
@@ -21,6 +22,7 @@ class TeacherController extends Controller
 public function course_dasboard($cursoId)
 {
     $course=Course::find($cursoId);
+    
     return view ("Teacher/teacher_dashboard",compact("course"));
 }
 
@@ -83,6 +85,8 @@ public function evaluate($cursoId)
                 's.created_at as Entregado', 
                 's.student_id as Estudiante',
                 's.id as Sub_id', 
+                's.Points as PuntosESTU',
+                'h.Points as PuntosTAREA',
             )
             ->get();
 
@@ -105,6 +109,29 @@ public function evaluate($cursoId)
 }
     
 }
-    
+
+
+public function Resources($cursoId)
+{
+    $course = Course::find($cursoId);
+ return view("Teacher/teacher_resources",compact("course"));
+}
+ 
+/////// TE QUEDASTE POR LA PARTE DE HACER LOS RECURSOS
+
+
+
+public function resources_Upload(Request $request)
+{
+    $file=$request->file("file");
+    $resource=$file->getClientOriginalName();
+    $file_path=$file->storeAs("Recursos",$resource,"public");
+    Resources::create([
+        'course_id'=>$request->course,
+        'teacher_id'=>3,
+        'file_path'=>$file_path,
+    ]);    
+    return redirect()->back()->with("mensaje","Su archivo ha subido con exito");
+}
 
 }

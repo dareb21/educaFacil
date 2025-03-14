@@ -7,6 +7,7 @@ use App\Models\Enrollment;
 use App\Models\Homework;
 use App\Models\Course;
 use App\Models\submit;
+use App\Models\Resources;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
@@ -20,8 +21,8 @@ class StudentController extends Controller
     {
         $courses = Enrollment::join('courses', 'courses.id', '=', 'enrollments.course_id')
         ->join('users','users.id','=','enrollments.student_id')
-        ->select('courses.name as Course','courses.id')
-        ->where("users.id",3)
+        ->select('courses.name as Course','courses.id','courses.meeting_url')
+        ->where("users.id",1)
         ->get();
 
         return view("Student/students_myCourses",compact("courses"));
@@ -36,7 +37,24 @@ class StudentController extends Controller
     public function homework($courseID)
     {
         $hws=Homework::where("course_id",$courseID)->get();
-        //dd($hws);
+       
+        /*
+        $hws = Homework::join('submit as s', 'homework.id', '=', 's.hw_id')
+    ->join('students as st', 's.student_id', '=', 'st.user_id')
+    ->join('users as u', 'st.user_id', '=', 'u.id')
+    ->join('courses as c', 'homework.course_id', '=', 'c.id')
+    ->select(
+        'homework.name',
+        'homework.desc',
+        'homework.Points',
+        'homework.deadline',
+        's.Points as PuntosAlumno',
+        'u.id'
+    )
+    ->where('c.id', $courseID)
+    ->where('u.id', 1)
+    ->get();
+        */
         return view("Student/students_homework",compact("hws"));
     }
 
@@ -48,14 +66,36 @@ class StudentController extends Controller
         
         $submit=submit::create([
             'hw_id'=>$request->hw_id,
-            'student_id'=>3,
+            'student_id'=>1,
             'file_path'=>$file_path,
         ]);
 
-     return redirect()->back()->with("mensaje","Se tarea ha subido con exito");
+     return redirect()->back()->with("mensaje","Su tarea ha subido con exito");
     
     }
 
-
-
+public function resources($courseID)
+{
+    $resources=Resources::where("course_id",$courseID)->get();
+  return view("Student/students_resources",compact("resources"));
 }
+
+public function prueba($resourceId)
+    {
+            $file=Resources::find($resourceId);
+            $path = $file->file_path;
+            
+    if (Storage::disk("public")->exists($path))
+    {   
+        return Storage::disk("public")->download($path);
+    }else    
+    {
+        return response()->json(["message"=>"Archivo NO encontrado"]);
+    }
+}
+
+public function Profile($profileID)
+{
+    dd($profileID);
+}
+    }

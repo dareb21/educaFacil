@@ -113,7 +113,7 @@
     @if(session('mensaje'))
     <script>
         Swal.fire({
-            title: "Transaccion satisfactoria.",
+            title: "Archivo subido.",
             text: "{{ session('mensaje') }}",
             icon: "success"
         });
@@ -125,15 +125,14 @@
 <div class="container">
     <h1>Asignaciones del Curso</h1>
     <ul class="asignaciones">
-    @if (!$hws || !$hws->isEmpty() )
-    @endif
+   
         @foreach ($hws as $hw)
             <li class="asignacion">
                 <h2>{{ $hw->Name }}</h2>
                 <p>{{ $hw->Desc }}</p>
                 <p>Puntos: {{ $hw->Points }}</p>
                 <span class="fecha">Fecha de entrega: {{ $hw->Deadline }}</span>
-
+                
                 
                 <button class="btn-entregar">Entregar</button>
 

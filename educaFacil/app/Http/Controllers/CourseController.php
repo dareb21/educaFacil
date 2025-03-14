@@ -31,7 +31,7 @@ class CourseController extends Controller
 
 public function enrollment($courseId)
 {
-    $id = 3;
+    $id = 1;
     $enrol = new Enrollment;
     $enrol->student_id = $id;
     $enrol->course_id =$courseId;

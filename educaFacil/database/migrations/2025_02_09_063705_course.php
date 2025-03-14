@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string("desc");
             $table->integer("duration");
             $table->string("mode");
-            $table->integer("student_max");
+            $table->integer("free_spots");
             $table->date("date_start");
+            $table->text("meeting_url")->nullable();
             $table->unsignedBigInteger("teacher_id");
             $table->unsignedBigInteger("category_id");
             $table->foreign("teacher_id")->references("user_id")->on("teachers");

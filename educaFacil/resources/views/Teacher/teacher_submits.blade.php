@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -105,6 +108,7 @@
                 <th>Nombre Alumno:</th>
                 <th># Alumno:</th>
                 <th>Fecha Entregado:</th>
+                <th>Puntos</th>  
                 <th>Acción:</th>
             </tr>
         </thead>
@@ -114,6 +118,7 @@
                 <td>{{$hw->Name}}</td>
                 <td>{{$hw->Estudiante}}</td>
                 <td>{{$hw->Entregado}}</td>
+                <td>{{$hw->PuntosESTU  ?? 0}} / {{$hw->PuntosTAREA}}</td>
                 <td>
                     <div class="file-links">
                     <a href="{{route('download', ['subId' => $hw->Sub_id]) }}" class="file-link">Descargar Documento</a>
@@ -129,3 +134,4 @@
 
 </body>
 </html>
+@endsection
