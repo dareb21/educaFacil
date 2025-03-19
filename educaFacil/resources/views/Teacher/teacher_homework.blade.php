@@ -60,7 +60,7 @@
             <textarea id="desc" rows="4" name="desc" required></textarea>
             
             <label for="task-points">Puntos:</label>
-            <input type="number" id="task-points" name="points" required>
+            <input type="number" id="task-points" name="points" min="1" required>
             
             <label for="task-date">Fecha Límite:</label>
             <input type="date" id="task-date" name="deadline" required>

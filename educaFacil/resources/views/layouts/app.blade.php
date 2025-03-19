@@ -88,10 +88,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Inicio</a>
+                            <a class="nav-link" href="{{ route('myCourses') }}">Mis cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mi Perfil</a>
+                            <a class="nav-link" href="{{ route('Profile')}}">Mi Perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Configuración</a>

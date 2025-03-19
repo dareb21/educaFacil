@@ -40,6 +40,17 @@ class StudentController extends Controller
     public function homework($courseID)
     {
         $hws=Homework::where("course_id",$courseID)->get();
+        $submits= [];
+        foreach ($hws as $hw)
+{
+    $hasSubmit=Submit::where("hw_id",$hw->id)
+                    ->where("student_id",Auth::id())
+                    ->exists();
+    $submits[$hw->id]= $hasSubmit ? "Si":"No";
+}
+
+        
+        //dd($hws);
        
         /*
         $hws = Homework::join('submit as s', 'homework.id', '=', 's.hw_id')
@@ -60,11 +71,17 @@ class StudentController extends Controller
         */
 
         
-        return view("Student/students_homework",compact("hws"));
+        return view("Student/students_homework",compact("hws","submits"));
     }
 
     public function submit(Request $request)
     {
+        try      
+{
+        $request->validate([
+            
+            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+        ]);
         $file= $request->file("archivo");
         $hwname= $file->getClientOriginalName();
         $file_path=$file->storeAs("entregas", $hwname,"public");
@@ -74,8 +91,58 @@ class StudentController extends Controller
             'student_id'=>Auth::id(),
             'file_path'=>$file_path,
         ]);
+       
+        
+    return redirect()->back()->with(["mensaje"=>"Su tarea ha subido con exito"]);
+    }
+    catch (\Illuminate\Validation\ValidationException $e)
+    
+    {
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+    }
+    
+    }
 
-     return redirect()->back()->with("mensaje","Su tarea ha subido con exito");
+
+
+
+    public function submit_Update(Request $request)
+    {
+    try      
+    {
+        $request->validate([
+            
+            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+        ]);
+
+    $thisSubmit=Submit::where("hw_id",$request->hw_id)
+    ->where("student_id",Auth::id())
+    ->first();
+
+        if ($thisSubmit)
+        {  
+            if (Storage::disk('public')->exists($thisSubmit->file_path)){
+                Storage::disk('public')->delete($thisSubmit->file_path);
+            }
+
+         $file= $request->file("archivo");
+        $hwname=$file->getClientOriginalName();
+        $file_path=$file->storeAs("entregas", $hwname,"public");
+
+
+        $thisSubmit->update([
+            'file_path' => $file_path,
+        ]);
+        return redirect()->back()->with(["mensaje"=>"Su tarea ha actualizada con exito"]);
+        }   
+        return redirect()->back()->with("Error", "No se encontró la tarea para actualizar.");
+    }
+   
+    catch (\Illuminate\Validation\ValidationException $e)
+    
+    {
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+    }
     
     }
 
@@ -106,19 +173,31 @@ public function prueba($resourceId)
 
     public function updateProfile(Request $request)
 {
-    $id =Auth::id();
-    User::where("id",$id)
-    ->update([
+$user=Auth::user();
+if (now()->diffInHours($user->updated_at) < 48) {
+    return redirect()->back()->with("Cooldown", "Debe esperar 2 días antes de actualizar nuevamente su perfil.");
+}
+
+try  {
+$request->validate([
+    "name" => "required|string|max:255",
+    "email" => "required|email|unique:users,email," . $user->id,
+    "phone" => "required|digits:8",
+    "gender" => "required|in:Masculino,Femenino",
+    "birthday" => "required|date|before:today",
+]);
+
+$user->update([
         "name"=>$request->name,
         "email"=>$request->email,
         "phone"=>$request->phone,
         "gender"=>$request->gender,
         "birthday"=>$request->birthday,
     ]);
-    return redirect()->route('home');
-    
-    
+    return redirect()->back()->with("Mensaje","Actualizacion exitosa");
+}catch(\Illuminate\Validation\ValidationException $e)
+{
+return redirect()->back()->with("Error","Solo campos validos");
 }
-    
-
+}
 }

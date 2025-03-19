@@ -51,10 +51,11 @@ Route::get('/courses/view/{courseId}',[CourseController::class,"coursesView"])->
 Route::post('/courses/view/{courseId}',[CourseController::class,"enrollment"])->name("enrollment");
 Route::get("homework/{courseID}",[StudentController::class,"homework"])->name("Homework_stu");
 Route::post("homework/{courseID}",[StudentController::class,"submit"])->name("submit");
+Route::put("homework/{courseID}",[StudentController::class,"submit_Update"])->name("submit_Update");
 Route::get('/resources-available/{courseID}',[StudentController::class,"resources"])->name("resources_stu");
 Route::get("/resources-available/download/{resourceId}",[StudentController::class,"prueba"])->name("prueba");
 Route::get("/myProfile",[StudentController::class,"Profile"])->name("Profile");
 Route::put("/myProfile",[StudentController::class,"updateProfile"])->name("updateProfile");
-
+//Route::put("homework/update/{}")
 /////Extras
 Route::get('/noticias',[AdminController::class,"posts"])->name("posts");

@@ -2,12 +2,42 @@
 
 @section('content')
 <body>
+@if(session('Mensaje'))
+    <script>
+        Swal.fire({
+            title: "Actualizacion.",
+            text: "{{ session('Mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
+
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Datos erroneos.",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
+@if(session('Cooldown'))
+    <script>
+        Swal.fire({
+            title: "Accion no realizada.",
+            text: "{{ session('Cooldown') }}",
+            icon: "warning"
+        });
+    </script>
+@endif
 <div class="container-fluid p-5">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <div class="text-center mb-4">
                 <h2 class="display-4 text-primary">Editar Perfil</h2>
             </div>
+
 
             <form method="POST" action="{{route('updateProfile')}}">
                 @csrf
@@ -35,11 +65,16 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label for="gender" class="col-md-3 col-form-label text-md-right">Género</label>
-                    <div class="col-md-9">
-                        <input id="gender" type="text" class="form-control form-control-lg" name="gender" value="{{ auth()->user()->gender }}">
-                    </div>
-                </div>
+    <label for="gender" class="col-md-3 col-form-label text-md-right">Género</label>
+    <div class="col-md-9">
+        <select id="gender" class="form-control form-control-lg" name="gender">
+            <option value="Masculino" {{ auth()->user()->gender == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            <option value="Femenino" {{ auth()->user()->gender == 'Femenino' ? 'selected' : '' }}>Femenino</option>
+       
+        </select>
+    </div>
+</div>
+
 
                 <div class="form-group row mb-4">
                     <label for="birthday" class="col-md-3 col-form-label text-md-right">Fecha de Nacimiento</label>

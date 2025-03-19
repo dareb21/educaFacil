@@ -126,6 +126,17 @@
     </script>
 @endif
 
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Accion NO permitida",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
+
 <main class="productos productos__contenedor">
     <h2 class="productos__heading">Cursos Disponibles</h2>
 

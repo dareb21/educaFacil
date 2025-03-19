@@ -119,6 +119,17 @@
         });
     </script>
 @endif
+
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Formato no soportado.",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
 </head>
 
 <body>
@@ -133,14 +144,22 @@
                 <p>Puntos: {{ $hw->Points }}</p>
                 <span class="fecha">Fecha de entrega: {{ $hw->Deadline }}</span>
                 
-                
+                @if($submits[$hw->id]==="No")
                 <button class="btn-entregar">Entregar</button>
-
                 <form action="{{route('submit', ['courseID'=>$hw->course_id])}}" method="POST" enctype="multipart/form-data" class="uploadForm">
                     @csrf
                     <input type="hidden" name="hw_id" value="{{ $hw->id }}">
                     <input type="file" name="archivo" class="fileInput" style="display: none;" />
                 </form>
+                @else
+                <button class="btn-entregar">Actualizar</button>
+                <form action="{{route('submit_Update', ['courseID'=>$hw->course_id])}}" method="POST" enctype="multipart/form-data" class="uploadForm">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="hw_id" value="{{ $hw->id }}">
+                    <input type="file" name="archivo" class="fileInput" style="display: none;" />
+                </form>
+                @endif
             </li>
         @endforeach
     </ul>

@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Enrollment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CourseController extends Controller
 {
@@ -32,6 +33,11 @@ class CourseController extends Controller
 
 public function enrollment($courseId)
 {
+    try {
+    $user = Enrollment::where("student_id",Auth::id())->where("course_id",$courseId)->firstOrFail();
+    return redirect()->route('courses')->with("Error","Usted ya esta inscrito en este curso.");
+    }catch (ModelNotFoundException $e)
+    {
     $enrol = new Enrollment;
     $enrol->student_id = Auth::id();
     $enrol->course_id =$courseId;
@@ -40,11 +46,10 @@ public function enrollment($courseId)
     Course::where("id",$courseId)
     ->decrement("free_spots");
     $courses = $this ->courses();
- 
-    
-    
     return redirect()->route('courses')->with("mensaje","Inscripcion realizada con exito.");
-
+}
+    
+    
 }
 
 }
