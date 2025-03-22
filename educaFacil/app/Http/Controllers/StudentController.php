@@ -174,8 +174,8 @@ public function prueba($resourceId)
     public function updateProfile(Request $request)
 {
 $user=Auth::user();
-if (now()->diffInHours($user->updated_at) < 48) {
-    return redirect()->back()->with("Cooldown", "Debe esperar 2 días antes de actualizar nuevamente su perfil.");
+if (now()->diffInHours($user->updated_at) < 24) {
+    return redirect()->back()->with("Cooldown", "Debe esperar 1 día antes de actualizar nuevamente su perfil.");
 }
 
 try  {

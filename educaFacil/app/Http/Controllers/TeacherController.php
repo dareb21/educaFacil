@@ -31,6 +31,15 @@ public function course_dasboard($cursoId)
 
 public function Newhomework(Request $REQUEST)
 {
+try
+{
+    $REQUEST->validate([
+        "Name" => "required|string|min:1|max:255",
+        "Desc" => "required|string|min:1",
+        "Points" => "required|integer|min:1",
+        "Deadline" => "required|date|after:today",
+    ]);
+    
     $hw= Homework::create(
         [
             'Name'=> $REQUEST->name,
@@ -41,6 +50,11 @@ public function Newhomework(Request $REQUEST)
         ]
         );
         return redirect()->route('teacherHome')->with("mensaje","Tarea asignada con exito, mucha suerte.");
+    }catch (\Illuminate\Validation\ValidationException $e)
+    
+    {
+        return redirect()->back()->with("Error","Favor introducir solo campos validos.");
+    }
 
 }
 public function homeHomework($cursoId)
@@ -61,9 +75,7 @@ public function evaluate($cursoId)
             'h.Desc as Desc',
             'h.Points as Points',
             'h.Deadline as Line',
-            'h.created_at as start',
-
-            
+            'h.created_at as start',            
         ])
         ->get();
     return view("Teacher/teacher_evaluate",compact("results"));
@@ -119,21 +131,43 @@ public function Resources($cursoId)
  return view("Teacher/teacher_resources",compact("course"));
 }
  
-/////// TE QUEDASTE POR LA PARTE DE HACER LOS RECURSOS
-
-
 
 public function resources_Upload(Request $request)
 {
+try
+{
+    $request->validate([
+            
+        "file" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+    ]);
+
     $file=$request->file("file");
     $resource=$file->getClientOriginalName();
     $file_path=$file->storeAs("Recursos",$resource,"public");
     Resources::create([
         'course_id'=>$request->course,
-        'teacher_id'=>3,
+        'teacher_id'=>Auth::id(),
         'file_path'=>$file_path,
     ]);    
     return redirect()->back()->with("mensaje","Su archivo ha subido con exito");
 }
+catch (\Illuminate\Validation\ValidationException $e)
+    
+    {
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+    }
+}
+
+public function evaluateThis(Request $request, $subId)
+
+{
+
+    //dd( $subId);
+    //dd($request->input('nota'));  // Captura el subId desde la URL
+    $thisSubmit=submit::find($subId);
+    $note = Submit::where('id', $subId)->update(['Points' => $request->input('nota')]);
+    return redirect()->back()->with("mensaje","Puntuacion realizada con exito.");
+}
+
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,12 +14,13 @@ class CourseController extends Controller
 {
     public function courses()
     {
-       
+       $categories =Category::all();
+
         $courses = Course::join('categories', 'categories.id', '=', 'courses.category_id')
         ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name')
         ->where('free_spots','>',0)
         ->get();
-        return view("Courses/course_home",compact("courses"));
+        return view("Courses/course_home",compact("courses","categories"));
     }
 
     public function coursesView($courseId)
@@ -30,6 +32,16 @@ class CourseController extends Controller
         ->first();
         return view("Courses/course_view",compact("course"));
     }
+
+
+    public function coursesFilter(Request $request)
+{    
+$courses=Course::where("category_id",$request->input("categoryId"))->get();
+
+    dd($courses);
+    
+}
+    
 
 public function enrollment($courseId)
 {

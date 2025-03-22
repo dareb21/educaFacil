@@ -63,13 +63,6 @@
         text-transform: uppercase;
     }
 
-    .producto__descripcion {
-        font-size: 16px;
-        color: #555;
-        line-height: 1.5;
-        margin-bottom: 15px;
-    }
-
     .producto__info {
         font-size: 14px;
         color: #777;
@@ -99,6 +92,29 @@
         transform: translateY(-3px);
     }
 
+    /* Estilos del dropdown y el botón */
+    .dropdown {
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .dropdown select, .dropdown button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 2px solid #ccc;
+        background-color: #ffffff;
+        color: #333;
+        transition: border-color 0.3s ease;
+    }
+
+    .dropdown select:focus, .dropdown button:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
     /* Media queries */
     @media (max-width: 768px) {
         .productos__heading {
@@ -112,6 +128,10 @@
         .modelo__enlace {
             font-size: 16px;
             padding: 10px 20px;
+        }
+
+        .dropdown select, .dropdown button {
+            width: 200px;
         }
     }
 </style>
@@ -129,23 +149,35 @@
 @if(session('Error'))
     <script>
         Swal.fire({
-            title: "Accion NO permitida",
+            title: "Acción NO permitida",
             text: "{{ session('Error') }}",
             icon: "error"
         });
     </script>
 @endif
 
-
 <main class="productos productos__contenedor">
     <h2 class="productos__heading">Cursos Disponibles</h2>
+
+    <!-- Formulario de filtro -->
+    <div class="dropdown">
+    <form action="{{ route('coursesFilter') }}" method="GET">
+        <select name="categoryId" id="category">
+            <option value="">Selecciona una categoría</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+</div>
+
 
     <div class="productos__grid">
         @foreach ($courses as $course)
         <div class="producto">
             <div class="producto__contenido">
                 <h3 class="producto__nombre">{{ $course->name }}</h3>
-                
                 <p class="producto__info"><span>Duración:</span> {{ $course->duration }} semanas</p>
                 <p class="producto__info"><span>Modalidad:</span> {{ $course->mode }}</p>
                 <p class="producto__info"><span>Cupos disponibles:</span> {{ $course->free_spots }}</p>

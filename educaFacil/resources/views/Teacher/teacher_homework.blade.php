@@ -48,6 +48,16 @@
         }
     </style>
 </head>
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Datos no validos.",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
 <body>
     <div class="task-container">
         <h2>Asignar Nueva Tarea</h2>

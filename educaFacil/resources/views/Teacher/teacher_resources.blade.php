@@ -13,6 +13,17 @@
     </script>
 @endif
 
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Formato no soportado.",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
+
 <div class="container">
     <h2 class="page-title">Subir Material Didáctico</h2>
     <form action="{{ route('resources_Upload', ['cursoId' => $course->id]) }}" method="POST" enctype="multipart/form-data" class="course-card">
