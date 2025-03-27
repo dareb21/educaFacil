@@ -84,8 +84,8 @@
 <body>
 
     <div class="form-container">
-        <h2>Registro de Catedratico</h2>
-        <form action="{{ route('createTeacher') }}" method="POST">
+        <h2>Registro de Administrador</h2>
+        <form action="{{ route('createAdmin') }}" method="POST">
         @csrf
             <div class="form-group">
                 <label for="name">Nombre:</label>

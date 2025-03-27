@@ -18,9 +18,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //Admin
-Route::get('/admin/create/admin',[AdminController::class,"newAdmin"])->name("newAdmin");
-Route::post("/admin/create/admin",[AdminController::class,"createAdmin"])->name("createAdmin");
-Route::get('/laravel',[AdminController::class,"laravel"])->name("laravel");
+
+Route::middleware(['auth','role:Admin'])->group(function() {
+Route::get('/admin/home/',[AdminController::class,"home"])->name("adminHome");
+//Route::get('/laravel',[AdminController::class,"laravel"])->name("laravel");
 Route::get('/admin/create/teacher',[AdminController::class,"newTeacher"])->name("newTeacher");
 Route::post('/admin/create/teacher',[AdminController::class,"createTeacher"])->name("createTeacher");
 
@@ -30,6 +31,9 @@ Route::post('/admin/create/category',[AdminController::class,"createCategory"])-
 Route::get('/admin/create/course',[AdminController::class,"newCourse"])->name("newCourse");
 Route::post('/admin/create/course',[AdminController::class,"createCourse"])->name("createCourse");
 
+Route::get('/admin/create/admin',[AdminController::class,"newAdmin"])->name("newAdmin");
+Route::post("/admin/create/admin",[AdminController::class,"createAdmin"])->name("createAdmin");
+});
 //teacher
 
 Route::middleware(['auth','role:Teacher'])->group(function() {

@@ -163,7 +163,7 @@
     <div class="dropdown">
     <form action="{{ route('coursesFilter') }}" method="GET">
         <select name="categoryId" id="category">
-            <option value="">Selecciona una categoría</option>
+            <option value="" disabled selected >Selecciona una categoría</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach

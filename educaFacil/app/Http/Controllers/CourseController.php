@@ -36,10 +36,15 @@ class CourseController extends Controller
 
     public function coursesFilter(Request $request)
 {    
-$courses=Course::where("category_id",$request->input("categoryId"))->get();
+    $categories =Category::all();
+    $courses = Course::join('categories', 'categories.id', '=', 'courses.category_id')
+    ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name')
+    ->where('free_spots','>',0)
+    ->where("category_id",$request->input("categoryId"))
+    ->get();
+    return view("Courses/course_home",compact("courses","categories"));
 
-    dd($courses);
-    
+
 }
     
 

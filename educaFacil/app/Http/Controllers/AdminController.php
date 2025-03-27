@@ -21,6 +21,9 @@ class AdminController extends Controller
 
     public function createAdmin(Request $REQUEST)
     {
+
+       
+        
         $user = User::create([
             'name' => $REQUEST->name,
             'email' => $REQUEST->email,
@@ -104,6 +107,12 @@ class AdminController extends Controller
     
 {
     return view("post");
+}
+
+public function home()
+
+{
+    return view("Admin/admin_home");
 }
 
 

@@ -138,7 +138,7 @@ try
 {
     $request->validate([
             
-        "file" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+        "file" => 'required|mimes:pdf,docx,xlsx,txt,pptx',
     ]);
 
     $file=$request->file("file");
@@ -154,20 +154,44 @@ try
 catch (\Illuminate\Validation\ValidationException $e)
     
     {
-        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx");
     }
 }
 
 public function evaluateThis(Request $request, $subId)
 
 {
+    $Points = DB::table('submit as s')
+    ->join('homework as h', 's.hw_id', '=', 'h.id')
+    ->where('s.id', $subId)
+    ->select(      
+    'h.Points as PuntosTAREA',
+    )->first();
 
-    //dd( $subId);
-    //dd($request->input('nota'));  // Captura el subId desde la URL
+
+try
+{
+   $request->validate([
+
+    'nota' => 'required|integer|min:0|max:' . intval($Points->PuntosTAREA)  
+]);
+
     $thisSubmit=submit::find($subId);
     $note = Submit::where('id', $subId)->update(['Points' => $request->input('nota')]);
-    return redirect()->back()->with("mensaje","Puntuacion realizada con exito.");
+   
+    session()->flash("mensaje", "Puntuación realizada con éxito.");
+    return back();
+
+} catch(\Illuminate\Validation\ValidationException $e)
+{
+    return redirect()->back()->with("Error"," Puntacion no valida.");
+}
 }
 
 
 }
+
+
+
+
+

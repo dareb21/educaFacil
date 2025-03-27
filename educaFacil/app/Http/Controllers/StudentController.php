@@ -80,7 +80,7 @@ class StudentController extends Controller
 {
         $request->validate([
             
-            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx',
         ]);
         $file= $request->file("archivo");
         $hwname= $file->getClientOriginalName();
@@ -98,7 +98,7 @@ class StudentController extends Controller
     catch (\Illuminate\Validation\ValidationException $e)
     
     {
-        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx");
     }
     
     }
@@ -112,7 +112,7 @@ class StudentController extends Controller
     {
         $request->validate([
             
-            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx,zip,rar',
+            "archivo" => 'required|mimes:pdf,docx,xlsx,txt,pptx',
         ]);
 
     $thisSubmit=Submit::where("hw_id",$request->hw_id)
@@ -141,7 +141,7 @@ class StudentController extends Controller
     catch (\Illuminate\Validation\ValidationException $e)
     
     {
-        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx, zip, rar");
+        return redirect()->back()->with("Error","Formato de archivo no permitido. Permitidos: pdf, docx, xlsx, txt, pptx");
     }
     
     }
@@ -174,6 +174,7 @@ public function prueba($resourceId)
     public function updateProfile(Request $request)
 {
 $user=Auth::user();
+
 if (now()->diffInHours($user->updated_at) < 24) {
     return redirect()->back()->with("Cooldown", "Debe esperar 1 día antes de actualizar nuevamente su perfil.");
 }

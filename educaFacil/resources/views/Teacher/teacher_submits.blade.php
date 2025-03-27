@@ -110,6 +110,16 @@
     </script>
 @endif
 
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Nota no valida.",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
+
 
 <div class="container">
     <h1>Tareas Subidas</h1>
@@ -126,16 +136,16 @@
         <tbody>
             @foreach($results as $hw)
             <tr>
-                <td>{{$hw->Sub_id}}</td>
+                <td>{{$hw->Name}}</td>
                 <td>{{$hw->Estudiante}}</td>
                 <td>{{$hw->Entregado}}</td>
                 <td>{{$hw->PuntosESTU  ?? 0}} / {{$hw->PuntosTAREA}}</td>
                 <td>
-                    <div class="file-links">
-                    <a href="{{route('download', ['subId' => $hw->Sub_id]) }}" class="file-link">Descargar Documento</a>
-                    <a id="nota-link" href="{{ route('evaluateThis', ['subId' => $hw->Sub_id]) }}" class="file-link">Asignar Nota</a>
+                <div class="file-links">
+    <a href="{{route('download', ['subId' => $hw->Sub_id]) }}" class="file-link">Descargar Documento</a>
+    <a class="nota-link" href="{{ route('evaluateThis', ['subId' => $hw->Sub_id]) }}" class="file-link">Asignar Nota</a>
+</div>
 
-                 </div>
                 </td>
             </tr>
             
@@ -144,22 +154,23 @@
     </table>
 </div>
 <script>
-    document.getElementById("nota-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Esto detiene el proceso de la ruta inmediatamente al hacer clic en el enlace
+    
+    document.querySelectorAll(".nota-link").forEach(function(link) {
+        link.addEventListener("click", function(event) {
+            event.preventDefault(); // Detiene el comportamiento predeterminado del enlace
 
-        let userInput = prompt("Ingresa un valor: 0/{{$hw->PuntosTAREA}}"); // Muestra el prompt para ingresar la nota
+            let userInput = prompt("Ingresa un valor: 0/{{$hw->PuntosTAREA}}"); // Pide la nota al usuario
 
-        if (userInput !== null) {
-            // Obtiene la URL base de la ruta (lo que está en el atributo href del enlace)
-            let baseUrl = this.href;
-
-            // Crea la nueva URL agregando el parámetro 'nota' con el valor ingresado por el usuario
-            let newUrl = baseUrl + "?nota=" + encodeURIComponent(userInput);
-
-            // Redirige a la nueva URL con el valor ingresado
-            window.location.href = newUrl;
-        }
+            if (userInput !== null) {
+                let baseUrl = this.href; // Obtiene la URL base del enlace
+                let newUrl = baseUrl + "?nota=" + encodeURIComponent(userInput); // Crea la nueva URL con la nota
+                window.location.href = newUrl; // Redirige a la nueva URL
+            }
+            
+        })
+        
     });
-</script></body>
+</script>
+</body>
 </html>
 @endsection

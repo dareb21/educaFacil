@@ -31,6 +31,12 @@ class HomeController extends Controller
         {
         return redirect()->route('teacherHome');
         }
+        
+        if ($userOrTeacher->role == "Admin")
+        {
+        return redirect()->route('adminHome');
+        }
+        
         return view('home');
     }
 }

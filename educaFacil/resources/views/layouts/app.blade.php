@@ -95,7 +95,7 @@
                             <a class="nav-link" href="#">Configuración</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('Profile') }}">Contactanos</a>
+                            <a class="nav-link" href="https://chat.whatsapp.com/TU-LINK-AQUI">Contactanos</a>
                         </li>
                     </ul>
 

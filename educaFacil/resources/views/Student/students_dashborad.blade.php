@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <style>
     /* Reset de márgenes y padding */
     * {
@@ -113,3 +114,4 @@
 </div>
 
 @endsection
+
