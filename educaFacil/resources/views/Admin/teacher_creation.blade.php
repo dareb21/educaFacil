@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -81,6 +84,25 @@
         }
     </style>
 </head>
+@if(session('mensaje'))
+    <script>
+        Swal.fire({
+            title: "Exito",
+            text: "{{ session('mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
+
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Error",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
 <body>
 
     <div class="form-container">
@@ -133,3 +155,6 @@
 
 </body>
 </html>
+
+@endsection
+

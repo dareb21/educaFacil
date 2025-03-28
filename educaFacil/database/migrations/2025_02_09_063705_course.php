@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string("mode");
             $table->integer("free_spots");
             $table->date("date_start");
+            $table->string("days");
+            $table->string("hour");
             $table->text("meeting_url")->nullable();
             $table->unsignedBigInteger("teacher_id");
             $table->unsignedBigInteger("category_id");

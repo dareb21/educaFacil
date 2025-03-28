@@ -182,6 +182,7 @@
                 <p class="producto__info"><span>Modalidad:</span> {{ $course->mode }}</p>
                 <p class="producto__info"><span>Cupos disponibles:</span> {{ $course->free_spots }}</p>
                 <p class="producto__info"><span>Inicio:</span> {{ $course->date_start }}</p>
+                <p class="producto__info"><span>Horario:</span> {{ $course->Day }}  {{ $course->Hour }} </p>
                 <p class="producto__info"><span>Categoría:</span> {{ $course->category_name }}</p>
                 <a class="modelo__enlace" href="{{ route('coursesView', ['courseId' => $course->id]) }}">Ver Curso</a>
             </div>

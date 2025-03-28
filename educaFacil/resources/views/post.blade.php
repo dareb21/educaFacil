@@ -81,16 +81,13 @@
     <section class="anuncios">
         <h2>Anuncios Importantes</h2>
         <div class="anuncio">
-            <p><strong>¡Nuevo horario de atención!</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus odio et dui lacinia, et tincidunt enim euismod. Praesent ullamcorper ligula eget felis vehicula tincidunt. Cras maximus purus eu orci auctor, ac luctus mi egestas.</p>
-            <small>Publicado: 20 de febrero de 2025</small>
-        </div>
-        <div class="anuncio">
-            <p><strong>Recordatorio importante:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit euismod malesuada. Vivamus bibendum, ipsum et faucibus sollicitudin, nunc erat gravida purus, sit amet varius nunc nisi et risus. Aenean lobortis velit ac ante convallis, nec egestas libero viverra.</p>
-            <small>Publicado: 19 de febrero de 2025</small>
-        </div>
-        <div class="anuncio">
-            <p><strong>Suspensión temporal del servicio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut mi sed lorem condimentum sollicitudin. Aliquam non magna ipsum. Vivamus vitae risus ut ante feugiat mollis a at eros. Nam non nulla vitae risus egestas viverra.</p>
-            <small>Publicado: 18 de febrero de 2025</small>
+            @foreach ($posts as $post)
+            <p><strong>
+            {{$post->post_title}}</strong>
+
+            {{$post->post_description}}
+             <small>{{$post->created_at }}</small>
+            @endforeach
         </div>
     </section>
 </body>

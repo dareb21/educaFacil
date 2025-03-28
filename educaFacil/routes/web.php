@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -19,7 +20,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Admin
 
-Route::middleware(['auth','role:Admin'])->group(function() {
+
 Route::get('/admin/home/',[AdminController::class,"home"])->name("adminHome");
 //Route::get('/laravel',[AdminController::class,"laravel"])->name("laravel");
 Route::get('/admin/create/teacher',[AdminController::class,"newTeacher"])->name("newTeacher");
@@ -33,7 +34,11 @@ Route::post('/admin/create/course',[AdminController::class,"createCourse"])->nam
 
 Route::get('/admin/create/admin',[AdminController::class,"newAdmin"])->name("newAdmin");
 Route::post("/admin/create/admin",[AdminController::class,"createAdmin"])->name("createAdmin");
-});
+Route::get("/admin/create/post",[AdminController::class,"newPost"])->name("newPost");
+Route::post("/admin/create/post",[AdminController::class,"createPost"])->name("createPost");
+
+
+
 //teacher
 
 Route::middleware(['auth','role:Teacher'])->group(function() {
@@ -72,4 +77,4 @@ Route::get("/myProfile",[StudentController::class,"Profile"])->name("Profile");
 Route::put("/myProfile",[StudentController::class,"updateProfile"])->name("updateProfile");
 //Route::put("homework/update/{}")
 /////Extras
-Route::get('/noticias',[AdminController::class,"posts"])->name("posts");
+Route::get('/noticias',[PostController::class,"posts"])->name("posts");

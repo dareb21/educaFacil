@@ -78,7 +78,7 @@
         <nav class="navbar navbar-expand-md navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/home">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Educafacil') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

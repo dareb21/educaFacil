@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,6 +85,25 @@
     </style>
 </head>
 <body>
+@if(session('mensaje'))
+    <script>
+        Swal.fire({
+            title: "Exito",
+            text: "{{ session('mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
+
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Error",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
 
     <div class="form-container">
         <h2>Creacion de Categorias</h2>
@@ -104,3 +126,6 @@
 
 </body>
 </html>
+
+
+@endsection

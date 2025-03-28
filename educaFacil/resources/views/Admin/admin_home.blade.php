@@ -121,8 +121,10 @@
     <div class="course-card">
         <h3 class="course-title">Crear Post</h3>
         <p class="course-description">Comparte anuncios importantes o discusiones en el grupo asignado.</p>
-        <a href="{{ route('myCourses') }}" class="course-button">Unirme</a>
+        <a href="{{ route('newPost') }}" class="course-button">Unirme</a>
     </div>
 </div>
 
 @endsection
+
+

@@ -62,8 +62,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 10, // en semanas
             'mode' => 'En vivo',
             'free_spots' => 25,
+            'Days' => "L-Mi-V",
+            "hour"=>"7:00 - 8:30 Pm",
             'date_start' => '2025-04-01',
-            'teacher_id' => 2, // Asegúrate de que este ID exista en la tabla teachers
+            'teacher_id' => 1, // Asegúrate de que este ID exista en la tabla teachers
             'category_id' => 1, // Telecomunicaciones
         ]);
 
@@ -73,8 +75,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 12,
             'mode' => 'Pregrabado',
             'free_spots' => 30,
+            'Days' => "L",
+            "hour"=>"7:00",
             'date_start' => '2025-05-10',
-            'teacher_id' => 3,
+            'teacher_id' => 2,
             'category_id' => 2, // DBA
         ]);
 
@@ -84,8 +88,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 14,
             'mode' => 'En vivo',
             'free_spots' => 20,
+            'Days' => "L-Mi-V",
+            "hour"=>"7:00 - 8:30 Pm",
             'date_start' => '2025-06-15',
-            'teacher_id' => 4,
+            'teacher_id' => 3,
             'category_id' => 3, // Programación Web
         ]);
 
@@ -95,8 +101,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 8,
             'mode' => 'Pregrabado',
             'free_spots' => 15,
+            'Days' => "Mi",
+            "hour"=>"8:30 Pm",
             'date_start' => '2025-07-01',
-            'teacher_id' => 5,
+            'teacher_id' => 4,
             'category_id' => 4, // Arquitectura
         ]);
 
@@ -106,8 +114,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 6,
             'mode' => 'En vivo',
             'free_spots' => 10,
+            'Days' => "S",
+            "hour"=>"9:00 - 10:30 Pm",
             'date_start' => '2025-08-10',
-            'teacher_id' => 6,
+            'teacher_id' => 5,
             'category_id' => 5, // Derecho
         ]);
 
@@ -117,8 +127,10 @@ class DatabaseSeeder extends Seeder
             'duration' => 9,
             'mode' => 'Pregrabado',
             'free_spots' => 18,
+            'Days' => "V",
+            "hour"=>"9:00 AM",
             'date_start' => '2025-09-05',
-            'teacher_id' => 7,
+            'teacher_id' => 6,
             'category_id' => 6, // Ingeniería Industrial
         ]);
 
@@ -129,6 +141,8 @@ class DatabaseSeeder extends Seeder
             'duration' => 6, // en semanas
             'mode' => 'En vivo',
             'free_spots' => 20,
+            'Days' => "M-J",
+            "hour"=>"6:30 - 7:30 Pm",
             'date_start' => '2025-09-15',
             'teacher_id' => 3, // Asegúrate de que este ID exista en la tabla teachers
             'category_id' => 2, // DBA
@@ -140,6 +154,8 @@ class DatabaseSeeder extends Seeder
             'duration' => 8,
             'mode' => 'Pregrabado',
             'free_spots' => 25,
+            'Days' => "M",
+            "hour"=>"10:00 am",
             'date_start' => '2025-10-01',
             'teacher_id' => 3,
             'category_id' => 2, // DBA

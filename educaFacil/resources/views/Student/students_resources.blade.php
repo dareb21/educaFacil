@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursos del Curso</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,15 +15,8 @@
             margin: 0;
             padding: 0;
         }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in-out;
-        }
+        <!--
+
         h1 {
             text-align: center;
             animation: slideDown 1s ease-in-out;
@@ -43,6 +35,19 @@
             animation: fadeInUp 0.5s ease-in-out forwards;
             position: relative;
         }
+
+        .no-recursos {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.2em;
+    border: 1px solid #f5c6cb;
+}
+
+
         .recurso:nth-child(1) { animation-delay: 0.2s; }
         .recurso:nth-child(2) { animation-delay: 0.4s; }
         .recurso:nth-child(3) { animation-delay: 0.6s; }
@@ -97,16 +102,22 @@
 <div class="container">
     <h1>Recursos del Curso</h1>
     <ul class="recursos">
-        @foreach ($resources as $resource)
-            <li class="recurso">
-                <h2>Titulo 1</h2>
-                <span class="fecha">Fecha de subida: {{ $resource->created_at }}</span>
-                <a href="{{route('prueba',['resourceId'=>$resource->id])}}" class="descargar-btn">Descargar</a>
+        @if($resources->isEmpty())
+        <li class="no-recursos">
+                <h2>No hay material disponible aún</h2>   
             </li>
+        @else
+            @foreach ($resources as $resource)
+                <li class="recurso">
+                    <h2>{{ $resource->Name }}</h2> <!-- Asegúrate de usar el atributo correcto -->
+                    <span class="fecha">Fecha de subida: {{ $resource->created_at->format('d/m/Y') }}</span>
+                    <a href="{{ route('prueba', ['resourceId' => $resource->id]) }}" class="descargar-btn">Descargar</a>
+                </li>
             @endforeach
-        </ul>
-          
+        @endif
+    </ul>
 </div>
+
 
 </body>
 </html>

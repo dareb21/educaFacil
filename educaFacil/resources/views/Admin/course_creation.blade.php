@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('content')
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,7 +85,25 @@
     </style>
 </head>
 <body>
+@if(session('mensaje'))
+    <script>
+        Swal.fire({
+            title: "Exito",
+            text: "{{ session('mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
 
+@if(session('Error'))
+    <script>
+        Swal.fire({
+            title: "Error",
+            text: "{{ session('Error') }}",
+            icon: "error"
+        });
+    </script>
+@endif
     <div class="form-container">
         <h2>Creacion de curso</h2>
         <form action="{{ route('createCourse') }}" method="POST">
@@ -99,7 +120,7 @@
 
             <div class="form-group">
                 <label for="duration">Semanas de duracion:</label>
-                <input type="number" id="duration" name="duration" required>
+                <input type="number" id="duration"  name="duration" min="3" required>
             </div>
 
             <div class="form-group">
@@ -112,8 +133,8 @@
             </div>
 
             <div class="form-group">
-                <label for="max">Capacidad maxima de estudiantes:</label>
-                <input type="number" id="max" name="max" required>
+                <label for="max">Cupos disponibles de estudiantes:</label>
+                <input type="number" id="max" name="max" min="4" required>
             </div>
 
             <div class="form-group">
@@ -147,3 +168,6 @@
 
 </body>
 </html>
+
+
+@endsection

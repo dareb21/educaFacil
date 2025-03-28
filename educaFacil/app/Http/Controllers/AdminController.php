@@ -11,6 +11,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Posts;
 
 class AdminController extends Controller
 {
@@ -19,10 +20,29 @@ class AdminController extends Controller
         return view("Admin/admin_creation");
     }
 
+
+
+
+
+
+
+
     public function createAdmin(Request $REQUEST)
     {
+        $REQUEST->gender=strtolower($REQUEST->gender);
+try
+{
+$REQUEST->validate([
 
-       
+
+            'name'      => 'required|string|max:255',  
+            'email'     => 'required|email|unique:users,email',  
+            'phone'     => 'required|string|digits:8',  
+            'gender'    => 'required|string|in:masculino,femenino',   
+            'birthday'  => 'required|date|before:today',
+            'password'  => 'required|string|min:8',  
+            'subrol'    => 'required|string|max:255',  
+        ]);
         
         $user = User::create([
             'name' => $REQUEST->name,
@@ -38,15 +58,69 @@ class AdminController extends Controller
             'user_id' => $user->id,  
             'subrol' => $REQUEST->subrol,
         ]);
+        
+    return redirect()->back()->with(["mensaje"=>"Admin creado con exito"]);
+    }catch(\Illuminate\Validation\ValidationException $e)
+
+    {
+     return redirect()->back()->with("Error","Campos no validos, favor llenar otra vez.");
     }
+}
+
+
+
+
+
+
+
+
+
+
     
     public function newTeacher()
     {
         return view("Admin/teacher_creation");
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function createTeacher(Request $REQUEST)
     {
+        $data=$REQUEST->all();
+
+$data["gender"]=strtolower($data["gender"]);
+
+$REQUEST->merge($data);
+
+       try
+     
+       {
+        $REQUEST->validate([
+            'name'      => 'required|string|max:255',  
+            'email'     => 'required|email|unique:users,email',  
+            'phone'     => 'required|string|digits:8',  
+            'gender'    => 'required|string|in:masculino,femenino',  
+            'birthday'  => 'required|date|before:today',  
+            'password'  => 'required|string|min:8',  
+            'prof'      => 'required|string|max:255', 
+        ]);
+
         $user = User::create([
             'name' => $REQUEST->name,
             'email' => $REQUEST->email,
@@ -62,7 +136,24 @@ class AdminController extends Controller
             'user_id' => $user->id,  
             'profession' => $REQUEST->prof,
         ]);
+
+        return redirect()->back()->with(["mensaje"=>"Catefratico creado con exito"]);
+
+    }catch(\Illuminate\Validation\ValidationException $e)
+
+    {
+     return redirect()->back()->with("Error","Campos no validos, favor llenar otra vez.");
     }
+}
+
+
+
+
+
+
+
+
+
 
     public function newCategory()   
     {
@@ -71,11 +162,43 @@ class AdminController extends Controller
 
     public function createCategory(Request $REQUEST)
     {
+    try
+
+    
+    {
+        $REQUEST->validate([
+            'name' => 'required|string|max:255|min:5', 
+            'desc' => 'required|string|max:500|min:10', 
+        ]);
+
         $category = Category::create([
             'name' => $REQUEST->name,
             'desc'=> $REQUEST->desc,
         ]);
+        
+    return redirect()->back()->with(["mensaje"=>"Categoria creada con exito"]);
+    } catch(\Illuminate\Validation\ValidationException $e)
+
+    {
+     return redirect()->back()->with("Error","Campos no validos, favor llenar otra vez.");
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function newCourse()
     {
@@ -87,10 +210,47 @@ class AdminController extends Controller
     }
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function createCourse(Request $REQUEST)
     {
-        $curso = new Course;
+        //dd($REQUEST->mode =="Live",$REQUEST->all());
         
+        $REQUEST->validate([
+            "name"        => "required|string|max:255|min:5",
+            "desc"        => "required|string|min:10",
+            "duration"    => "required|integer|min:3",
+            "mode"        => "required|string|in:Live,Recorded",
+            "max"         => "required|integer|min:4",
+            "start"       => "required|date|after:today",
+        ]);
+    if ($REQUEST->mode =="Live")
+    
+{
+
+    $url ="https://meet.google.com/jxj-xsfz-npb?authuser=0";
+}else
+{
+$url="https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY?usp=sharing";
+}
+        
+        $curso = new Course;
         $curso->name = $REQUEST->name;
         $curso->desc = $REQUEST->desc;
         $curso->duration = $REQUEST->duration;
@@ -99,15 +259,15 @@ class AdminController extends Controller
         $curso->date_start = $REQUEST->start;
         $curso->teacher_id = $REQUEST->teacher;
         $curso->category_id = $REQUEST->category;
-        $curso->save();   
-    }
-
-
-    public function posts()
+        $curso->meeting_url = $url;
+        $curso->save();
     
-{
-    return view("post");
-}
+      
+        return redirect()->back()->with(["mensaje" => "Curso creado con éxito"]);
+    }
+    
+
+
 
 public function home()
 
@@ -116,10 +276,69 @@ public function home()
 }
 
 
-public function laravel()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function newPost()
+
 {
-    return view("welcome");
+    return view("Admin/new_post");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function createPost(Request $request)
+{
+try
+
+{
+    $request->validate([
+        "post_title" =>"required|string|max:255",
+        "post_description"=>"required"
+    ]);
+
+    $post = Posts::create([
+        "post_title"=>$request->post_title,
+        "post_description"=>$request->post_description,
+    ]);
+
+    return redirect()->back()->with(["mensaje"=>"Post creado con exito"]);
+}catch(\Illuminate\Validation\ValidationException $e)
+
+{
+ return redirect()->back()->with("Error","Campos no validos, favor llenar otra vez.");
+}
+    
+
+}
+
 
 
 

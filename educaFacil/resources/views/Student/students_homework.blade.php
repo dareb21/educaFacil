@@ -17,15 +17,7 @@
             margin: 0;
             padding: 0;
         }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in-out;
-        }
+       
         h1 {
             text-align: center;
             animation: slideDown 1s ease-in-out;
@@ -89,7 +81,38 @@
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
+        .no-recursos {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.2em;
+    border: 1px solid #f5c6cb;
+}
         
+.btn-actualizar {
+            position: absolute;
+            right: 20px;
+            bottom: 15px;
+            background-color:#ff9800;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .btn-actualizar:hover {
+            background-color:#ff9800;
+            transform: scale(1.1);
+        }
+
         /* Botón de entregar */
         .btn-entregar {
             position: absolute;
@@ -138,32 +161,40 @@
     <h1>Asignaciones del Curso</h1>
     <ul class="asignaciones">
    
+    <ul class="asignaciones">
+    @if (!$hws->isEmpty())
         @foreach ($hws as $hw)
             <li class="asignacion">
                 <h2>{{ $hw->Name }}</h2>
                 <p>{{ $hw->Desc }}</p>
                 <p>Puntos: {{ $hw->Points }}</p>
-                <span class="fecha">Fecha de entrega: {{ $hw->Deadline }}</span>
+                <span class="fecha">Fecha de entrega: {{ $hw->Deadline->format('d/m/Y')  }}</span>
                 
-                @if($submits[$hw->id]==="No")
-                <button class="btn-entregar">Entregar</button>
-                <form action="{{route('submit', ['courseID'=>$hw->course_id])}}" method="POST" enctype="multipart/form-data" class="uploadForm">
-                    @csrf
-                    <input type="hidden" name="hw_id" value="{{ $hw->id }}">
-                    <input type="file" name="archivo" class="fileInput" style="display: none;" />
-                </form>
+                @if($submits[$hw->id] === "No")
+                    <button class="btn-entregar">Entregar</button>
+                    <form action="{{ route('submit', ['courseID' => $hw->course_id]) }}" method="POST" enctype="multipart/form-data" class="uploadForm">
+                        @csrf
+                        <input type="hidden" name="hw_id" value="{{ $hw->id }}">
+                        <input type="file" name="archivo" class="fileInput" style="display: none;" />
+                    </form>
                 @else
-                <button class="btn-entregar">Actualizar</button>
-                <form action="{{route('submit_Update', ['courseID'=>$hw->course_id])}}" method="POST" enctype="multipart/form-data" class="uploadForm">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="hw_id" value="{{ $hw->id }}">
-                    <input type="file" name="archivo" class="fileInput" style="display: none;" />
-                </form>
+                    <button class="btn-actualizar">Actualizar</button>
+                    <form action="{{ route('submit_Update', ['courseID' => $hw->course_id]) }}" method="POST" enctype="multipart/form-data" class="uploadForm">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="hw_id" value="{{ $hw->id }}">
+                        <input type="file" name="archivo" class="fileInput" style="display: none;" />
+                    </form>
                 @endif
             </li>
         @endforeach
-    </ul>
+    @else
+        <li class="no-recursos">
+            <h2>Sin asignaciones</h2>   
+        </li>
+    @endif
+</ul>
+
 </div>
 
 </body>

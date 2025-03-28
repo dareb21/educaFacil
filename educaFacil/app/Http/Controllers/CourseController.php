@@ -17,7 +17,7 @@ class CourseController extends Controller
        $categories =Category::all();
 
         $courses = Course::join('categories', 'categories.id', '=', 'courses.category_id')
-        ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name')
+        ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name','courses.days as Day','courses.hour as Hour')
         ->where('free_spots','>',0)
         ->get();
         return view("Courses/course_home",compact("courses","categories"));
@@ -27,7 +27,7 @@ class CourseController extends Controller
     {
        
         $course = Course::join('categories', 'categories.id', '=', 'courses.category_id')
-        ->select('courses.id','courses.name','courses.desc','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name')
+        ->select('courses.id','courses.name','courses.desc','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name','courses.days as Day','courses.hour as Hour')
         ->where('courses.id',$courseId)
         ->first();
         return view("Courses/course_view",compact("course"));
@@ -35,7 +35,9 @@ class CourseController extends Controller
 
 
     public function coursesFilter(Request $request)
-{    
+{   
+    if ($request->input("categoryId") !==null)
+{
     $categories =Category::all();
     $courses = Course::join('categories', 'categories.id', '=', 'courses.category_id')
     ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name')
@@ -43,7 +45,11 @@ class CourseController extends Controller
     ->where("category_id",$request->input("categoryId"))
     ->get();
     return view("Courses/course_home",compact("courses","categories"));
+}else
 
+{
+    return redirect()->route('courses')->with("Error","Seleccione una categoria, por favor.");
+}
 
 }
     

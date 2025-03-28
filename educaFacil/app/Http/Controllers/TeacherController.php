@@ -145,6 +145,7 @@ try
     $resource=$file->getClientOriginalName();
     $file_path=$file->storeAs("Recursos",$resource,"public");
     Resources::create([
+        'Name'=> $resource,
         'course_id'=>$request->course,
         'teacher_id'=>Auth::id(),
         'file_path'=>$file_path,

@@ -37,19 +37,32 @@ class StudentController extends Controller
     }
 
 
+
+
+
     public function homework($courseID)
     {
         $hws=Homework::where("course_id",$courseID)->get();
-        $submits= [];
-        foreach ($hws as $hw)
-{
-    $hasSubmit=Submit::where("hw_id",$hw->id)
-                    ->where("student_id",Auth::id())
-                    ->exists();
-    $submits[$hw->id]= $hasSubmit ? "Si":"No";
-}
-
         
+if ($hws->isEmpty())
+
+{
+    return view("Student/students_homework",compact("hws"));
+}
+else
+
+{
+    $submits= [];
+    foreach ($hws as $hw)
+{
+$hasSubmit=Submit::where("hw_id",$hw->id)
+                ->where("student_id",Auth::id())
+                ->exists();
+$submits[$hw->id]= $hasSubmit ? "Si":"No";
+
+}
+return view("Student/students_homework",compact("hws","submits"));
+}  
         //dd($hws);
        
         /*
@@ -69,9 +82,6 @@ class StudentController extends Controller
     ->where('u.id', 1)
     ->get();
         */
-
-        
-        return view("Student/students_homework",compact("hws","submits"));
     }
 
     public function submit(Request $request)
@@ -149,6 +159,8 @@ class StudentController extends Controller
 public function resources($courseID)
 {
     $resources=Resources::where("course_id",$courseID)->get();
+   //dd($resources->isEmpty());
+
   return view("Student/students_resources",compact("resources"));
 }
 

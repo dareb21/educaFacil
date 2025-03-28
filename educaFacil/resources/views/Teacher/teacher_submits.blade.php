@@ -16,15 +16,7 @@
             text-align: center;
         }
         
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
+        
 
         h1 {
             color: #333;
