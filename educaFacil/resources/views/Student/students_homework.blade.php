@@ -168,8 +168,9 @@
                 <h2>{{ $hw->Name }}</h2>
                 <p>{{ $hw->Desc }}</p>
                 <p>Puntos: {{ $hw->Points }}</p>
-                <span class="fecha">Fecha de entrega: {{ $hw->Deadline->format('d/m/Y')  }}</span>
-                
+            
+                <p>Puntos obtenidos: {{ $pointsGain[$hw->id] ?? "0" }}</p>
+                <span class="fecha">Fecha de entrega: {{ $hw->Deadline  }}</span>
                 @if($submits[$hw->id] === "No")
                     <button class="btn-entregar">Entregar</button>
                     <form action="{{ route('submit', ['courseID' => $hw->course_id]) }}" method="POST" enctype="multipart/form-data" class="uploadForm">

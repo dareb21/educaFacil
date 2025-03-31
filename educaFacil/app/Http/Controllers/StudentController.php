@@ -39,8 +39,7 @@ class StudentController extends Controller
 
 
 
-
-    public function homework($courseID)
+public function homework($courseID)
     {
         $hws=Homework::where("course_id",$courseID)->get();
         
@@ -53,38 +52,34 @@ else
 
 {
     $submits= [];
+    $pointsGain=[];
     foreach ($hws as $hw)
 {
 $hasSubmit=Submit::where("hw_id",$hw->id)
                 ->where("student_id",Auth::id())
                 ->exists();
 $submits[$hw->id]= $hasSubmit ? "Si":"No";
+if ($hasSubmit)
+{
+$point =Submit::select("Points")
+->where("hw_id",$hw->id)
+->where("student_id",Auth::id())
+->first();
+if ($point)
+{
+    $pointsGain[$hw->id]=$point;
+}
 
 }
-return view("Student/students_homework",compact("hws","submits"));
-}  
-        //dd($hws);
-       
-        /*
-        $hws = Homework::join('submit as s', 'homework.id', '=', 's.hw_id')
-    ->join('students as st', 's.student_id', '=', 'st.user_id')
-    ->join('users as u', 'st.user_id', '=', 'u.id')
-    ->join('courses as c', 'homework.course_id', '=', 'c.id')
-    ->select(
-        'homework.name',
-        'homework.desc',
-        'homework.Points',
-        'homework.deadline',
-        's.Points as PuntosAlumno',
-        'u.id'
-    )
-    ->where('c.id', $courseID)
-    ->where('u.id', 1)
-    ->get();
-        */
-    }
 
-    public function submit(Request $request)
+
+}
+return view("Student/students_homework",compact("hws","submits","pointsGain"));
+}  
+        
+}
+
+public function submit(Request $request)
     {
         try      
 {
@@ -213,4 +208,21 @@ $user->update([
 return redirect()->back()->with("Error","Solo campos validos");
 }
 }
+
+
+public function historial()
+{
+
+    $courses = Enrollment::join('courses', 'courses.id', '=', 'enrollments.course_id')
+    ->join('users','users.id','=','enrollments.student_id')
+    ->select('courses.name as Course','courses.date_start as Start','courses.mode as Mode')
+    ->where("users.id", Auth::id())
+    ->get();
+
+    return view("Student/historial",compact("courses"));
+
+}
+
+
+
 }

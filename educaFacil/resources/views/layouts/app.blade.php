@@ -53,7 +53,7 @@
 
         /* Sticky footer padding */
         main {
-            padding-top: 80px; /* To ensure content doesn't overlap with fixed navbar */
+            padding-top: 100px; /* To ensure content doesn't overlap with fixed navbar */
         }
 
         /* SweetAlert styling */

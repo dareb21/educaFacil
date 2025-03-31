@@ -96,8 +96,8 @@
                 <td>{{$hw->Name}}</td>
         <td>{{$hw->Desc}}</td>
         <td>{{$hw->Points}}</td>
-        <td>{{$hw->Line->format('d/m/Y') }}</td>
-                <td>{{$hw->start->format('d/m/Y') }}</td>
+        <td>{{$hw->Line }}</td>
+                <td>{{$hw->start}}</td>
                 <td>
                     <a href="{{route('submits', ['hwId' => $hw->Hid]) }}" class="file-link">Ver entregas</a>
                 </td>

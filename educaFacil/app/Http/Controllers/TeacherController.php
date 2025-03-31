@@ -31,13 +31,15 @@ public function course_dasboard($cursoId)
 
 public function Newhomework(Request $REQUEST)
 {
-try
+    
+    try
+    
 {
     $REQUEST->validate([
-        "Name" => "required|string|min:1|max:255",
-        "Desc" => "required|string|min:1",
-        "Points" => "required|integer|min:1",
-        "Deadline" => "required|date|after:today",
+        "name" => "required|string|min:1|max:255",
+        "desc" => "required|string|min:1",
+        "points" => "required|integer|min:1",
+        "deadline" => "required|date|after:today",
     ]);
     
     $hw= Homework::create(
@@ -49,11 +51,13 @@ try
             'course_id'=> $REQUEST->course,
         ]
         );
-        return redirect()->route('teacherHome')->with("mensaje","Tarea asignada con exito, mucha suerte.");
+        
+        return redirect()->back()->with("mensaje","Tarea asignada con exito, mucha suerte.");
     }catch (\Illuminate\Validation\ValidationException $e)
     
     {
-        return redirect()->back()->with("Error","Favor introducir solo campos validos.");
+        return redirect()->back()->with("Error","Tarea rechazada, inserte datos validos.");
+
     }
 
 }
@@ -78,6 +82,7 @@ public function evaluate($cursoId)
             'h.created_at as start',            
         ])
         ->get();
+        
     return view("Teacher/teacher_evaluate",compact("results"));
 }
 
@@ -103,8 +108,10 @@ public function evaluate($cursoId)
                 'h.Points as PuntosTAREA',
             )
             ->get();
-
-        return view ("Teacher/teacher_submits",compact("results"));
+            
+        //dd($results->isEmpty());
+            return view ("Teacher/teacher_submits",compact("results"));
+            
     }
 
     public function download($subId)
@@ -119,7 +126,7 @@ public function evaluate($cursoId)
         return Storage::disk('public')->download($path);
     }else
 {
-    return response()->json(["message"=>"Archivo NO encontrado"]);
+    return redirect()->back()->with("Error","Archivo no encontrado.");
 }
     
 }
@@ -180,8 +187,7 @@ try
     $thisSubmit=submit::find($subId);
     $note = Submit::where('id', $subId)->update(['Points' => $request->input('nota')]);
    
-    session()->flash("mensaje", "Puntuación realizada con éxito.");
-    return back();
+    return redirect()->back()->with("mensaje", "Puntuación realizada con éxito.");
 
 } catch(\Illuminate\Validation\ValidationException $e)
 {

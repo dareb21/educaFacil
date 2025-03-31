@@ -72,6 +72,9 @@ Route::put("homework/{courseID}",[StudentController::class,"submit_Update"])->na
 Route::get('/resources-available/{courseID}',[StudentController::class,"resources"])->name("resources_stu");
 Route::get("/resources-available/download/{resourceId}",[StudentController::class,"prueba"])->name("prueba");
 
+Route::get('/myRecord',[StudentController::class,"historial"])->name("historial");
+
+
 });
 Route::get("/myProfile",[StudentController::class,"Profile"])->name("Profile");
 Route::put("/myProfile",[StudentController::class,"updateProfile"])->name("updateProfile");

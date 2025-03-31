@@ -89,6 +89,8 @@
     </div>
 
     <div class="course-card">
+        
+    <a class="modelo__enlace" href="{{ route('historial') }}">
         <div class="course-title">Historial de Cursos</div>
     </div>
 

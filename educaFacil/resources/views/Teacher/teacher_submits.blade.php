@@ -88,6 +88,19 @@
             background-color: #ff6b6b;
             color: white;
         }
+
+        .no-recursos {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.2em;
+    border: 1px solid #f5c6cb;
+}
+
+
     </style>
 </head>
 <body>
@@ -126,32 +139,43 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($results as $hw)
+    @if(!$results->isEmpty())
+        @foreach($results as $hw)
             <tr>
-                <td>{{$hw->Name}}</td>
-                <td>{{$hw->Estudiante}}</td>
-                <td>{{$hw->Entregado}}</td>
-                <td>{{$hw->PuntosESTU  ?? 0}} / {{$hw->PuntosTAREA}}</td>
+                <td>{{ $hw->Name }}</td>
+                <td>{{ $hw->Estudiante }}</td>
+                <td>{{ $hw->Entregado }}</td>
+                <td>{{ $hw->PuntosESTU ?? 0 }} / {{ $hw->PuntosTAREA }}</td>
                 <td>
-                <div class="file-links">
-    <a href="{{route('download', ['subId' => $hw->Sub_id]) }}" class="file-link">Descargar Documento</a>
-    <a class="nota-link" href="{{ route('evaluateThis', ['subId' => $hw->Sub_id]) }}" class="file-link">Asignar Nota</a>
-</div>
-
+                    <div class="file-links">
+                        <a href="{{ route('download', ['subId' => $hw->Sub_id]) }}" class="file-link">Descargar Documento</a>
+                        <a href="{{ route('evaluateThis', ['subId' => $hw->Sub_id]) }}" class="nota-link">Asignar Nota</a>
+                    </div>
                 </td>
             </tr>
-            
+    
+</tbody>
+</div>
+                </td>
+            </tr>            
             @endforeach
+
+            @else
+        <tr>
+            <td colspan="5" class="no-recursos">
+                <h2>No hay material disponible aún</h2>
+            </td>
+        </tr>
+    @endif
         </tbody>
     </table>
 </div>
 <script>
-    
     document.querySelectorAll(".nota-link").forEach(function(link) {
         link.addEventListener("click", function(event) {
             event.preventDefault(); // Detiene el comportamiento predeterminado del enlace
 
-            let userInput = prompt("Ingresa un valor: 0/{{$hw->PuntosTAREA}}"); // Pide la nota al usuario
+            let userInput = prompt("Ingresa nota a asignar: }}"); // Pide la nota al usuario
 
             if (userInput !== null) {
                 let baseUrl = this.href; // Obtiene la URL base del enlace

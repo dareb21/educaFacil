@@ -58,6 +58,19 @@
     </script>
 @endif
 
+
+@if(session('mensaje'))
+    <script>
+        Swal.fire({
+            title: "Tarea subida.",
+            text: "{{ session('mensaje') }}",
+            icon: "success"
+        });
+    </script>
+@endif
+
+
+
 <body>
     <div class="task-container">
         <h2>Asignar Nueva Tarea</h2>
