@@ -29,7 +29,12 @@ class AdminController extends Controller
 
     public function createAdmin(Request $REQUEST)
     {
-        $REQUEST->gender=strtolower($REQUEST->gender);
+        $data=$REQUEST->all();
+
+        $data["gender"]=strtolower($data["gender"]);
+        
+        $REQUEST->merge($data);        
+        
 try
 {
 $REQUEST->validate([
@@ -137,7 +142,7 @@ $REQUEST->merge($data);
             'profession' => $REQUEST->prof,
         ]);
 
-        return redirect()->back()->with(["mensaje"=>"Catefratico creado con exito"]);
+        return redirect()->back()->with(["mensaje"=>"Catedratico creado con exito"]);
 
     }catch(\Illuminate\Validation\ValidationException $e)
 
@@ -230,7 +235,8 @@ $REQUEST->merge($data);
 
     public function createCourse(Request $REQUEST)
     {
-        //dd($REQUEST->mode =="Live",$REQUEST->all());
+        
+
         
         $REQUEST->validate([
             "name"        => "required|string|max:255|min:5",
@@ -240,6 +246,16 @@ $REQUEST->merge($data);
             "max"         => "required|integer|min:4",
             "start"       => "required|date|after:today",
         ]);
+
+        $data=$REQUEST->all();
+        $data["days"]=strtoupper($data["days"]);
+        $REQUEST->merge($data);
+        $hora_inicio= $REQUEST->hour;
+        $hora_clase = "1:30";
+        $tiempo_total = strtotime($hora_inicio) + strtotime($hora_clase) -strtotime("00:00");
+        $hora_fin=date("H:i",$tiempo_total);
+       $horario = $hora_inicio. " - " . $hora_fin;
+      
     if ($REQUEST->mode =="Live")
     
 {
@@ -257,6 +273,8 @@ $url="https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY?u
         $curso->mode = $REQUEST->mode;
         $curso->free_spots = $REQUEST->max;
         $curso->date_start = $REQUEST->start;
+        $curso->days =$REQUEST->days;
+        $curso->hour =$horario;
         $curso->teacher_id = $REQUEST->teacher;
         $curso->category_id = $REQUEST->category;
         $curso->meeting_url = $url;

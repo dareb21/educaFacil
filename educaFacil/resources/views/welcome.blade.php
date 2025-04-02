@@ -1,3 +1,7 @@
+@extends('layouts.welcome')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -75,12 +79,13 @@
     </style>
 </head>
 <body>
-    <div class="header">EducaFácil - Aprende de manera sencilla y gratuita</div>
+    
+   
     
     <div class="container">
         <h1>Accede a cursos gratuitos de diversas categorías</h1>
         <p>Desarrolla nuevas habilidades con nuestros cursos en línea completamente gratis. Aprende a tu ritmo con contenido de calidad.</p>
-        <a href="#cursos" class="btn">Explorar Cursos</a>
+        <a href="{{ route('courses') }}" class="btn">Explorar Cursos</a>
     </div>
     
     <div class="section">
@@ -125,9 +130,10 @@
     <div class="section">
         <h2>Únete a nuestra comunidad</h2>
         <p>Sé parte de miles de estudiantes que han mejorado sus habilidades con EducaFácil.</p>
-        <a href="#" class="btn">Regístrate Gratis</a>
+        <a href="{{ route('register') }}" class="btn">Regístrate Gratis</a>
     </div>
     
     <div class="footer">© 2025 EducaFácil - Todos los derechos reservados</div>
 </body>
 </html>
+@endsection

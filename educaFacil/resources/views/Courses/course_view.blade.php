@@ -107,6 +107,7 @@
     <p class="curso__info"><span>Horario:</span> {{ $course->Day }}  {{ $course->Hour }}</p>
     <p class="curso__info"><span>Categoría:</span> {{ $course->category_name }}</p>
 
+    @if($auth)
     <div class="curso__botones">
         <form action="{{ route('enrollment', ['courseId' => $course->id]) }}" method="POST">
             @csrf
@@ -115,5 +116,8 @@
         <a href="{{ route('courses') }}" class="btn btn__volver">Volver a Cursos</a>
     </div>
 </div>
+@else
+<a href="{{ route('login') }}" class="btn btn__volver">Inscribase YA!</a>
+@endif
 
 @endsection

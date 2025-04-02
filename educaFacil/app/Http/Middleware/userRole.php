@@ -16,7 +16,8 @@ class userRole
      */
     public function handle(Request $request, Closure $next, ...$roleArray): Response
     {
-        $user=Auth::user();
+       
+        $user=Auth::user();        
         if ($user && in_array($user->role,$roleArray))
 {
     return $next($request);

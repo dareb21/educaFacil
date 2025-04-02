@@ -77,9 +77,15 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light fixed-top">
             <div class="container">
+            @auth
                 <a class="navbar-brand" href="/home">
                     {{ config('app.name', 'Educafacil') }}
                 </a>
+                @else
+                <a class="navbar-brand" href="/">
+                    {{ config('app.name', 'Educafacil') }}
+                </a>
+                @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -92,10 +98,10 @@
                             <a class="nav-link" href="{{ route('Profile')}}">Mi Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Configuración</a>
+                            <a class="nav-link" href="https://chat.whatsapp.com/TU-LINK-AQUI">Contactanos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://chat.whatsapp.com/TU-LINK-AQUI">Contactanos</a>
+                            <a class="nav-link" href="#">¿Quieres apoyarnos?</a>
                         </li>
                     </ul>
 

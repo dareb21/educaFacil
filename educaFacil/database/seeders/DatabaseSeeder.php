@@ -23,8 +23,103 @@ class DatabaseSeeder extends Seeder
     {
    
 
+        User::create([
+            'name' => 'Tyler Joseph',
+            'email' => 'TylerJoseph@gmail.com',
+            'phone' => '00000000',
+            'gender' => 'masculino',
+            'birthday' => '1998-05-29',
+            'role' => 'Admin',
+            'password' => Hash::make("UnravelTKG2014"),
+            
+        ]);
+        User::create([
+            'name' => 'Prof1',
+            'email' => 'prof1@gmail.com',
+            'phone' => '00000001',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        User::create([
+            'name' => 'Prof2',
+            'email' => 'prof2@gmail.com',
+            'phone' => '00000002',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        User::create([
+            'name' => 'Prof i3',
+            'email' => 'prof3@gmail.com',
+            'phone' => '00000003',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        User::create([
+            'name' => 'Prof4',
+            'email' => 'prof4@gmail.com',
+            'phone' => '00000004',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        User::create([
+            'name' => 'Prof5',
+            'email' => 'prof5@gmail.com',
+            'phone' => '00000005',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher5',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        User::create([
+            'name' => 'Prof6',
+            'email' => 'prof6@gmail.com',
+            'phone' => '00000006',
+            'gender' => 'masculino',
+            'birthday' => '1990-05-02',
+            'role' => 'Teacher',
+            'password' => Hash::make("UnravelTKG2014"),
+        ]);
+        Admin::create([
+            'user_id' => 1,
+            'subrol' => 'Main Admin',
+        ]);
+           
+        Teacher::create([
+            'user_id' =>2 ,
+            'profession' => 'a',
+        ]);
 
-
+        Teacher::create([
+            'user_id' =>3 ,
+            'profession' => 'b',
+        ]);
+        
+        Teacher::create([
+            'user_id' =>4 ,
+            'profession' => 'c',
+        ]);
+        
+        Teacher::create([
+            'user_id' =>5 ,
+            'profession' => 'd',
+        ]);
+        
+        Teacher::create([
+            'user_id' =>6 ,
+            'profession' => 'e',
+        ]);
+        Teacher::create([
+            'user_id' =>7 ,
+            'profession' => 'f',
+        ]);
         Category::create([
             'name' => 'Telecomunicaciones',
             'desc' => 'Categoría enfocada en redes, comunicaciones y tecnologías inalámbricas.',
@@ -65,10 +160,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "L-Mi-V",
             "hour"=>"7:00 - 8:30 Pm",
             'date_start' => '2025-04-01',
-            'teacher_id' => 1, // Asegúrate de que este ID exista en la tabla teachers
+            'teacher_id' => 2, // Asegúrate de que este ID exista en la tabla teachers
             'category_id' => 1, // Telecomunicaciones
+            'meeting_url' => 'https://meet.google.com/jxj-xsfz-npb?authuser=0'
         ]);
-
+        
         Course::create([
             'name' => 'Administración de Bases de Datos',
             'desc' => 'Curso sobre modelado, gestión y optimización de bases de datos SQL y NoSQL.',
@@ -78,10 +174,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "L",
             "hour"=>"7:00",
             'date_start' => '2025-05-10',
-            'teacher_id' => 2,
+            'teacher_id' => 3,
             'category_id' => 2, // DBA
+            'meeting_url' => 'https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY'
         ]);
-
+        
         Course::create([
             'name' => 'Desarrollo Web Full Stack',
             'desc' => 'Aprende HTML, CSS, JavaScript, Laravel y bases de datos para crear aplicaciones web completas.',
@@ -91,10 +188,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "L-Mi-V",
             "hour"=>"7:00 - 8:30 Pm",
             'date_start' => '2025-06-15',
-            'teacher_id' => 3,
+            'teacher_id' => 4,
             'category_id' => 3, // Programación Web
+            'meeting_url' => 'https://meet.google.com/jxj-xsfz-npb?authuser=0'
         ]);
-
+        
         Course::create([
             'name' => 'Arquitectura Sostenible',
             'desc' => 'Explora diseños y materiales ecológicos para edificaciones eficientes.',
@@ -104,10 +202,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "Mi",
             "hour"=>"8:30 Pm",
             'date_start' => '2025-07-01',
-            'teacher_id' => 4,
+            'teacher_id' => 5,
             'category_id' => 4, // Arquitectura
+            'meeting_url' => 'https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY'
         ]);
-
+        
         Course::create([
             'name' => 'Derecho Corporativo',
             'desc' => 'Curso sobre regulaciones y leyes aplicadas a empresas y negocios.',
@@ -117,10 +216,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "S",
             "hour"=>"9:00 - 10:30 Pm",
             'date_start' => '2025-08-10',
-            'teacher_id' => 5,
+            'teacher_id' => 6,
             'category_id' => 5, // Derecho
+            'meeting_url' => 'https://meet.google.com/jxj-xsfz-npb?authuser=0'
         ]);
-
+        
         Course::create([
             'name' => 'Optimización de Procesos Industriales',
             'desc' => 'Curso sobre mejora de procesos, lean manufacturing y calidad industrial.',
@@ -130,11 +230,11 @@ class DatabaseSeeder extends Seeder
             'Days' => "V",
             "hour"=>"9:00 AM",
             'date_start' => '2025-09-05',
-            'teacher_id' => 6,
+            'teacher_id' => 7,
             'category_id' => 6, // Ingeniería Industrial
+            'meeting_url' => 'https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY'
         ]);
-
-
+        
         Course::create([
             'name' => 'Optimización de Consultas SQL',
             'desc' => 'Curso avanzado sobre cómo mejorar el rendimiento de las consultas SQL en bases de datos grandes.',
@@ -146,6 +246,7 @@ class DatabaseSeeder extends Seeder
             'date_start' => '2025-09-15',
             'teacher_id' => 3, // Asegúrate de que este ID exista en la tabla teachers
             'category_id' => 2, // DBA
+            'meeting_url' => 'https://meet.google.com/jxj-xsfz-npb?authuser=0'
         ]);
         
         Course::create([
@@ -159,7 +260,9 @@ class DatabaseSeeder extends Seeder
             'date_start' => '2025-10-01',
             'teacher_id' => 3,
             'category_id' => 2, // DBA
+            'meeting_url' => 'https://drive.google.com/drive/folders/1BfPm4jWf-Ze4y5KLHbMltFGbdO_yHZCY'
         ]);
+        
 
     }
 }

@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 
 <!DOCTYPE html>
 <html lang="es">
@@ -142,6 +140,14 @@
                 <input type="date" id="start" name="start" required>
             </div>
             <div class="form-group">
+                <label for="start">Dias impartido:</label>
+                <input type="text" id="days" name="days" required>
+            </div>
+            <div class="form-group">
+                <label for="start">Horas impartida:</label>
+                <input type="time" id="hour" name="hour" required>
+            </div>
+            <div class="form-group">
             <label for="teacher">Seleccione catedratico :</label>
             <select id="teacher" name="teacher" required>
             <option value="" disabled selected>Seleccionar opcion</option>               
@@ -170,4 +176,3 @@
 </html>
 
 
-@endsection
