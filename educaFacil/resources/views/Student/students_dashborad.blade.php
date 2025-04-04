@@ -109,7 +109,7 @@
     <div class="course-card">
         <h3 class="course-title">Grupo de WhatsApp</h3>
         <p class="course-description">Únete al grupo para resolver dudas y estar informado.</p>
-        <a href="https://chat.whatsapp.com/TU-LINK-AQUI" class="course-button" style="background-color: #25D366;">Unirme</a>
+        <a href="https://chat.whatsapp.com/DXkkQpV66NnDlb87KfFyhW" class="course-button" style="background-color: #25D366;">Unirme</a>
     </div>
 </div>
 

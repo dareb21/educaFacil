@@ -27,7 +27,7 @@ class CourseController extends Controller
     {
         $auth=auth()->check();
         $course = Course::join('categories', 'categories.id', '=', 'courses.category_id')
-        ->select('courses.id','courses.name','courses.desc','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name','courses.days as Day','courses.hour as Hour')
+        ->select('courses.id','courses.name','courses.duration','courses.mode','courses.free_spots','courses.date_start','categories.name as category_name','courses.days as Day','courses.hour as Hour')
         ->where('courses.id',$courseId)
         ->first();
         return view("Courses/course_view",compact("course","auth"));

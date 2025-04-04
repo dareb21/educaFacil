@@ -128,6 +128,25 @@
             font-weight: bold;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
+        .badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.badge-pendiente {
+    background-color: #f39c12; /* naranja */
+    color: white;
+    border: 1px solid #e67e22;
+}
+
+.badge-entregada {
+    background-color: #2ecc71; /* verde */
+    color: white;
+    border: 1px solid #27ae60;
+}
         
         .btn-entregar:hover {
             background-color: #0056b3;
@@ -168,25 +187,20 @@
                 <h2>{{ $hw->Name }}</h2>
                 <p>{{ $hw->Desc }}</p>
                 <p>Puntos: {{ $hw->Points }}</p>
-            
-                <p>Puntos obtenidos: {{ $pointsGain[$hw->id] ?? "0" }}</p>
+                @if ($submits[$hw->id]=="No")
+                <span class="badge badge-pendiente">Pendiente</span>
+                @else
+                <span class="badge badge-entregada">Entregada</span>
+                @endif
+                <p>Puntos obtenidos: {{ $pointsGain[$hw->id]['Points'] ?? "0" }}</p>
                 <span class="fecha">Fecha de entrega: {{ $hw->Deadline  }}</span>
-                @if($submits[$hw->id] === "No")
+               
                     <button class="btn-entregar">Entregar</button>
                     <form action="{{ route('submit', ['courseID' => $hw->course_id]) }}" method="POST" enctype="multipart/form-data" class="uploadForm">
                         @csrf
                         <input type="hidden" name="hw_id" value="{{ $hw->id }}">
                         <input type="file" name="archivo" class="fileInput" style="display: none;" />
                     </form>
-                @else
-                    <button class="btn-actualizar">Actualizar</button>
-                    <form action="{{ route('submit_Update', ['courseID' => $hw->course_id]) }}" method="POST" enctype="multipart/form-data" class="uploadForm">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="hw_id" value="{{ $hw->id }}">
-                        <input type="file" name="archivo" class="fileInput" style="display: none;" />
-                    </form>
-                @endif
             </li>
         @endforeach
     @else

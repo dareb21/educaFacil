@@ -6,6 +6,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\DonationController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -76,6 +77,11 @@ Route::get('/myRecord',[StudentController::class,"historial"])->name("historial"
 Route::get("/myProfile",[StudentController::class,"Profile"])->name("Profile");
 Route::put("/myProfile",[StudentController::class,"updateProfile"])->name("updateProfile");
 });
+
+Route::get("/donation",[DonationController::class,"donationView"])->name("donationView");
+Route::post("/paypal",[DonationController::class,"donation"])->name("donation");
+Route::get("/success",[DonationController::class,"success"])->name("success");
+Route::get("/cancel",[DonationController::class,"cancel"])->name("cancel");
 
 
 Route::get('/courses',[CourseController::class,"courses"])->name("courses");

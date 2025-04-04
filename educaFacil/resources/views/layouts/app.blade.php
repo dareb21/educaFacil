@@ -98,10 +98,10 @@
                             <a class="nav-link" href="{{ route('Profile')}}">Mi Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://chat.whatsapp.com/TU-LINK-AQUI">Contactanos</a>
+                            <a class="nav-link" href="https://wa.me/qr/QZYJIBJZDCDVG1">Contactanos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">¿Quieres apoyarnos?</a>
+                            <a class="nav-link" href="{{ route('donationView')}}">¿Quieres apoyarnos?</a>
                         </li>
                     </ul>
 
